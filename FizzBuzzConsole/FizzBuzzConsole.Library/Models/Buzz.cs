@@ -6,25 +6,28 @@ namespace FizzBuzzConsole.Library
 {
     public class Buzz
     {
-        public int RunBuzz(int count)
+        public static int buzzCount { get; set; }
+
+        public int SetBuzz()
         {
-            int currCount = 0;
-            Console.WriteLine("What is Buzz?");
+            Console.WriteLine("What should Buzz be divided by?");
             int buzz;
             bool correctInput = Int32.TryParse(Console.ReadLine(), out buzz);
-            if (correctInput)
+            if(!correctInput || buzz == 0)
             {
-                if (count % buzz == 0)
-                {
-                    currCount = 1;
-                }
+                Console.WriteLine("Whole numbers only, and only numbers greater than 0.");
+                SetBuzz();
             }
-            else
+
+            return buzz;
+        }
+
+        public void RunBuzz(int count, int buzz)
+        {
+            if (count % buzz == 0)
             {
-                Console.WriteLine("Whole numbers only.");
-                RunBuzz(count);
+                buzzCount++;
             }
-            return currCount;
         }
     }
 }
