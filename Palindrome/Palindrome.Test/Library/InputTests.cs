@@ -17,6 +17,7 @@ namespace Palindrome.Test.Library
             // How to test if user input stops it?
             Assert.IsType<string>(actual);
             Assert.DoesNotContain("Error", actual);
+            Assert.DoesNotContain("not", actual);
         }
 
         [Fact]
@@ -28,6 +29,7 @@ namespace Palindrome.Test.Library
             // How to test if user input stops it?
             Assert.IsType<string>(actual);
             Assert.DoesNotContain("Error", actual);
+            Assert.Contains("not", actual);
         }
     }
 }

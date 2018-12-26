@@ -13,7 +13,7 @@ namespace Palindrome.Library.Models
 
             if (input != "")
             {
-                userInput = input;
+                userInput = input.ToLower();
             }
             else
             {
