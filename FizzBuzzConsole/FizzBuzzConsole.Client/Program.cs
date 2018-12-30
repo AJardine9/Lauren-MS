@@ -12,15 +12,15 @@ namespace FizzBuzzConsole.Client
             var Buzz = new Buzz();
             var Fizz = new Fizz();
             var FizzBuzz = new FizzBuzz();
-
+                        
             int fizzAmt = Fizz.SetFizz();
-            int buzzAmt = Buzz.SetBuzz();
+            int buzzAmt = Buzz.SBuzz();
             int fizzBuzzAmt = FizzBuzz.SetFizzBuzz();
 
             while (FizzBuzz.fizzBuzzCount < fizzBuzzAmt)
             {
                 Fizz.RunFizz(currCount, fizzAmt);
-                Buzz.RunBuzz(currCount, buzzAmt);
+                Buzz.RBuzz(currCount, buzzAmt);
                 FizzBuzz.RunFizzBuzz(currCount, fizzAmt, buzzAmt);
 
                 currCount++;

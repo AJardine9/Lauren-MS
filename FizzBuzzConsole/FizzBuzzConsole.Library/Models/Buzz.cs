@@ -6,9 +6,22 @@ namespace FizzBuzzConsole.Library
 {
     public class Buzz
     {
+        public delegate int SetBuzz();
+        public delegate void RunBuzz(int count, int buzz);
         public static int buzzCount { get; set; }
 
-        public int SetBuzz()
+        private void DoBuzz(SetBuzz setB, RunBuzz runB, int count, int buzz)
+        {
+            buzzCount = setB();
+            runB(count, buzz);
+        }
+
+        public void CallBuzz()
+        {
+            DoBuzz(SBuzz(), RBuzz(), buzzCount, (buzz) => { buzz = SBuzz(); });
+        }
+
+        public int SBuzz()
         {
             Console.WriteLine("What should Buzz be divided by?");
             int buzz;
@@ -16,13 +29,13 @@ namespace FizzBuzzConsole.Library
             if(!correctInput || buzz == 0)
             {
                 Console.WriteLine("Whole numbers only, and only numbers greater than 0.");
-                SetBuzz();
+                SBuzz();
             }
 
             return buzz;
         }
 
-        public void RunBuzz(int count, int buzz)
+        public void RBuzz(int count, int buzz)
         {
             if (count % buzz == 0)
             {
