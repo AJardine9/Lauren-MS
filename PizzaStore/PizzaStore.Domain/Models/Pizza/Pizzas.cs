@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PizzaStore.Domain.Models.Pizza
 {
-    class Pizzas<T> where T : APizza
+    public class Pizzas<T> where T : APizza
     {
         public List<T> Pizzasa { get; set; }
 

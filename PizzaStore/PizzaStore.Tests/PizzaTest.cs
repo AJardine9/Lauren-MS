@@ -26,6 +26,8 @@ namespace PizzaStore.Tests
         [Fact]
         public void Test_PizzaToppings()
         {
+            var sut = new Pizza();
+            var actual = sut.Toppings;
         }
     }
 }

@@ -7,7 +7,7 @@ namespace PizzaStore.Tests
 {
     public class PizzaOptionsTest
     {
-                [Fact]
+        [Fact]
         public void Test_Cheese()
         {
             var expectedCheddar = "Cheddar";
