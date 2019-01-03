@@ -105,10 +105,10 @@ namespace PizzaStore.Tests
 
             var sut = new PizzaOptions();
 
-            Assert.Equal(expectedThin, sut.crustThin);
-            Assert.Equal(expectedRegular, sut.crustRegular);
-            Assert.Equal(expectedChicago, sut.crustChicago);
-            Assert.Equal(expectedCheese, sut.crustCheese);
+            Assert.Contains(expectedThin, sut.crustThin);
+            Assert.Contains(expectedRegular, sut.crustRegular);
+            Assert.Contains(expectedChicago, sut.crustChicago);
+            Assert.Contains(expectedCheese, sut.crustCheese);
         }
     }
 }

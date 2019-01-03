@@ -11,8 +11,8 @@ namespace PizzaStore.Domain.Models.Location
     {
         public string Address { get; set; }
         public List<us.User> Users { get; set; }
-        public List<Inventory> Inventories { get; set; }
-        public List<ord.Order> Orders { get; set; }
+        //public List<Inventory> Inventories { get; set; }
+        //public List<ord.Order> Orders { get; set; }
     }
 
     #region Address

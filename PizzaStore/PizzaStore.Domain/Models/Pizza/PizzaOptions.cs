@@ -47,7 +47,7 @@ namespace PizzaStore.Domain.Models.Pizza
         #region Crust Type
         public string crustThin { get; } = "Thin Crust";
         public string crustRegular { get; } = "Regular Crust";
-        public string crustCheese { get; } = "Cheese-filled Crust";
+        public string crustCheese { get; } = "Cheese Crust";
         public string crustChicago { get; } = "Chicago Style Crust";
 
         #endregion

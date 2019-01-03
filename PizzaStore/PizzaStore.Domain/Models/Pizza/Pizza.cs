@@ -10,6 +10,7 @@ namespace PizzaStore.Domain.Models.Pizza
             Size = size;
             Toppings = toppings;
         }
+
         #region Crust
         // allow for checking current crust
         public string GetCrust()
