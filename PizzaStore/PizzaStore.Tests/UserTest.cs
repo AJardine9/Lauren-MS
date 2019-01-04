@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using lo = PizzaStore.Domain.Models.Location;
+using ord = PizzaStore.Domain.Models.Order;
+using us = PizzaStore.Domain.Models.User;
 using Xunit;
 
 namespace PizzaStore.Tests
@@ -18,14 +21,22 @@ namespace PizzaStore.Tests
         [Fact]
         public void Test_Username()
         {
+            var expected = "admin";
+            var sut = new us.User();
 
+            Assert.IsType<string>(sut.Username);
+            Assert.True(expected == sut.Username);
         }
 
         // TODO: Does the user have a password that is not null?
         [Fact]
         public void Test_Password()
         {
+            var expected = "admin";
+            var sut = new us.User();
 
+            Assert.IsType<string>(sut.Password);
+            Assert.True(expected == sut.Password);
         }
 
         // TODO: Data from the last location ordered from, both time and location

@@ -19,17 +19,20 @@ namespace PizzaStore.Domain.Models.Order
                 OrderNumber = value + 1;
             }
         }
-        public us.User Customer { get; set; }
+        public string Username { get; set; }
         public double Total { get; set; }
         public DateTime PurchaseTime { get; set; }
         public bool CanCancel { get; set; }
+        public List<pi.Pizza> Pizzas { get; set; }
 
-
-        public static readonly pi.Pizzas<pi.Pizza> PizzaOrders = new pi.Pizzas<pi.Pizza>();
-
-        public Order()
+        public Order(string username, int lastordernumber)
         {
-            //PizzaOrders.Pizzasa.Add(new pi.Pizza(typeof(T).Name));
+            Pizzas = new List<pi.Pizza>();
+            Username = username;
+            Total = (double)0.0;
+            PurchaseTime = DateTime.Now;
+            CanCancel = true;
+            OrderNumber = lastordernumber;
         }
 
         #region Total
