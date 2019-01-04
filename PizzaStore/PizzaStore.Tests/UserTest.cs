@@ -14,7 +14,9 @@ namespace PizzaStore.Tests
         [Fact]
         public void Test_UserExists()
         {
-            
+            var sut = new us.User();
+
+            Assert.NotNull(sut);
         }
 
         // TODO: Does the user have a username?

@@ -46,5 +46,14 @@ namespace PizzaStore.Domain.Models.Order
             Total -= value;
         }
         #endregion
+
+        public void PriceOfPizzas(List<pi.Pizza> pizzas)
+        {
+            foreach (pi.Pizza pizza in pizzas)
+            {
+                pi.Pizza temp = new pi.Pizza();
+                temp.GetPriceOfPizza(pizza);
+            }
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using pi = PizzaStore.Domain.Models.Pizza;
 
 namespace PizzaStore.Domain.Models.Pizza
 {
@@ -75,9 +76,11 @@ namespace PizzaStore.Domain.Models.Pizza
 
         public void GetPriceOfPizza(Pizza pizza)
         {
+            var options = new pi.PizzaOptions();
             foreach (string topping in pizza.Toppings)
             {
-
+                // every additional topping is $1.50
+                Price += options.toppingPrice;
             }
         }
     }

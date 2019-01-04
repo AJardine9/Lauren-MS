@@ -6,6 +6,8 @@ namespace PizzaStore.Domain.Models.Pizza
 {
     public class PizzaOptions
     {
+        public double toppingPrice { get; set; } = 1.50;
+
         #region Toppings
         // Cheeses
         public string cheeseCheddar { get; } = "Cheddar Cheese";

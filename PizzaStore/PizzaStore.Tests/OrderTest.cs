@@ -186,14 +186,14 @@ namespace PizzaStore.Tests
 
         // TODO: Get price of specific pizza
         [Fact]
-        public void Test_GetPriceOfPizza()
+        public void Test_GetPriceOfPizzas()
         {
             var user = new us.User();
             var sut = new ord.Order(user.Username, 0);
             var actual = new pi.Pizza("thin", 8, null, 0);
             sut.Pizzas.Add(actual);
 
-            Assert.True(actual.Price == 0);
+            Assert.True(actual.Price > 0);
         }
     }
 }

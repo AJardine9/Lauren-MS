@@ -57,7 +57,7 @@ namespace PizzaStore.Tests
         public void Test_PizzaPrice()
         {
             var sut = new Pizza();
-            sut.Get
+            sut.GetPriceOfPizza(sut);
             var actual = sut.Price;
 
             Assert.True(sut.Price > 0);
