@@ -190,9 +190,10 @@ namespace PizzaStore.Tests
         {
             var user = new us.User();
             var sut = new ord.Order(user.Username, 0);
-            sut.Pizzas.Add(new pi.Pizza("thin", 8, null));
+            var actual = new pi.Pizza("thin", 8, null, 0);
+            sut.Pizzas.Add(actual);
 
-
+            Assert.True(actual.Price == 0);
         }
     }
 }

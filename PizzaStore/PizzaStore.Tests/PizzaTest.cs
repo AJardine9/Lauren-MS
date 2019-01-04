@@ -51,5 +51,16 @@ namespace PizzaStore.Tests
             Assert.NotNull(actual);
             Assert.True(sut.Toppings.Count <= 5);
         }
+
+        // Test that Pizza can have Price
+        [Fact]
+        public void Test_PizzaPrice()
+        {
+            var sut = new Pizza();
+            sut.Get
+            var actual = sut.Price;
+
+            Assert.True(sut.Price > 0);
+        }
     }
 }

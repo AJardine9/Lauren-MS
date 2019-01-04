@@ -4,11 +4,12 @@ namespace PizzaStore.Domain.Models.Pizza
 {
     public class Pizza : APizza
     {
-        public Pizza(string crust = "defaultCrust", int size = 0, List<string> toppings = null)
+        public Pizza(string crust = "defaultCrust", int size = 0, List<string> toppings = null, double price = (double)0.0)
         {
             Crust = crust;
             Size = size;
             Toppings = toppings;
+            Price = price;
         }
 
         #region Crust
@@ -71,5 +72,13 @@ namespace PizzaStore.Domain.Models.Pizza
             Toppings.Add(newTopping);
         }
         #endregion
+
+        public void GetPriceOfPizza(Pizza pizza)
+        {
+            foreach (string topping in pizza.Toppings)
+            {
+
+            }
+        }
     }
 }

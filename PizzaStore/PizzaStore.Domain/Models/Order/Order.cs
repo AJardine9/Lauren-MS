@@ -35,7 +35,7 @@ namespace PizzaStore.Domain.Models.Order
             OrderNumber = lastordernumber;
         }
 
-        #region Total
+        #region Totals
         public void AddToTotal(double value)
         {
             Total += value;
