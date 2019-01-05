@@ -9,18 +9,11 @@ namespace PizzaStore.Domain.Models.Location
 {
     public class Location
     {
+        public int Id { get; set; }
         public string Address { get; set; }
         public List<us.User> Users { get; set; }
-        //public List<Inventory> Inventories { get; set; }
-        //public List<ord.Order> Orders { get; set; }
+        //public List<Pizza> Inventory { get; set; }
+        public List<ord.Order> Orders { get; set; }
+        public int OrderNumber { get; set; }
     }
-
-    #region Address
-    #endregion
-    #region Users
-    #endregion
-    #region Inventories
-    #endregion
-    #region Orders
-    #endregion
 }

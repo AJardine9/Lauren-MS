@@ -10,12 +10,19 @@ namespace PizzaStore.Tests
 {
     public class UserTest
     {
+        public us.User sut { get; private set; }
+
+        public UserTest()
+        {
+            sut = new us.User();
+            sut.Username = "admin";
+            sut.Password = "password";
+        }
+
         // TODO: Is the user not null?
         [Fact]
         public void Test_UserExists()
         {
-            var sut = new us.User();
-
             Assert.NotNull(sut);
         }
 
@@ -24,7 +31,6 @@ namespace PizzaStore.Tests
         public void Test_Username()
         {
             var expected = "admin";
-            var sut = new us.User();
 
             Assert.IsType<string>(sut.Username);
             Assert.True(expected == sut.Username);
@@ -34,8 +40,7 @@ namespace PizzaStore.Tests
         [Fact]
         public void Test_Password()
         {
-            var expected = "admin";
-            var sut = new us.User();
+            var expected = "password";
 
             Assert.IsType<string>(sut.Password);
             Assert.True(expected == sut.Password);
@@ -45,7 +50,14 @@ namespace PizzaStore.Tests
         [Fact]
         public void Test_LastLocationOrdered()
         {
+            var location = new lo.Location();
+            location.OrderNumber = 10;
+            location.Address = "31 Main Ave. San Antonio, TX 78213";
+            var order = new ord.Order(sut.Username, location.OrderNumber, location.Address);
+            sut.Orders.Add(order);
 
+            Assert.Contains(order, sut.Orders);
+            Assert.True(sut.Orders.L)
         }
 
         // TODO: Does OrderHistory exist and contain orders?

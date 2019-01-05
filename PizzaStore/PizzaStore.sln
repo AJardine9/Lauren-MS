@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaStore.Tests", "PizzaStore.Tests\PizzaStore.Tests.csproj", "{EA18941B-4863-428B-8531-A22F5D40BACA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PizzaStore.Tests", "PizzaStore.Tests\PizzaStore.Tests.csproj", "{EA18941B-4863-428B-8531-A22F5D40BACA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaStore.Domain", "PizzaStore.Domain\PizzaStore.Domain.csproj", "{C76147B7-68D8-4FA1-A65E-506160FFC7FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PizzaStore.Domain", "PizzaStore.Domain\PizzaStore.Domain.csproj", "{C76147B7-68D8-4FA1-A65E-506160FFC7FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaStore.Data", "PizzaStore.Data\PizzaStore.Data.csproj", "{A5DAC323-48B1-4E33-90F2-DA9CE5EE6B14}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaStore.EFMigration", "PizzaStore.EFMigration\PizzaStore.EFMigration.csproj", "{31350119-18C2-4F23-B036-D8882CFC0A26}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{C76147B7-68D8-4FA1-A65E-506160FFC7FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C76147B7-68D8-4FA1-A65E-506160FFC7FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C76147B7-68D8-4FA1-A65E-506160FFC7FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5DAC323-48B1-4E33-90F2-DA9CE5EE6B14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5DAC323-48B1-4E33-90F2-DA9CE5EE6B14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5DAC323-48B1-4E33-90F2-DA9CE5EE6B14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5DAC323-48B1-4E33-90F2-DA9CE5EE6B14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31350119-18C2-4F23-B036-D8882CFC0A26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31350119-18C2-4F23-B036-D8882CFC0A26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31350119-18C2-4F23-B036-D8882CFC0A26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31350119-18C2-4F23-B036-D8882CFC0A26}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

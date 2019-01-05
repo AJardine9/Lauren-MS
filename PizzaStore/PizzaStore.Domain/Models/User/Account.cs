@@ -6,6 +6,7 @@ namespace PizzaStore.Domain.Models.User
 {
     public class Account
     {
+        public int Id { get; set; }
         public void Login()
         {
 

@@ -5,11 +5,12 @@ namespace PizzaStore.Domain.Models.Pizza
 {
     public class Pizza : APizza
     {
-        public Pizza(string crust = "defaultCrust", int size = 0, List<string> toppings = null, double price = (double)0.0)
+        public int Id { get; set; }
+        public Pizza(string crust = "Regular", int size = 12, double price = (double)5.00)
         {
             Crust = crust;
             Size = size;
-            Toppings = toppings;
+            Toppings = new List<string>();
             Price = price;
         }
 

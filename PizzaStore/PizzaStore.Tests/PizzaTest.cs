@@ -9,12 +9,22 @@ namespace PizzaStore.Tests
 {
     public class PizzaTest
     {
+        public Pizza sut { get; private set; }
+        public PizzaOptions option { get; private set; }
+
+        public PizzaTest()
+        {
+            option = new PizzaOptions();
+            
+            sut = new Pizza(option.crustRegular, option.sizeMedium, (double)5.50);
+            sut.AddTopping(option.veggieGreenOlive);
+            sut.AddTopping(option.meatBacon);
+        }
+
         // TODO: Test Pizza
         [Fact]
         public void Test_Pizza()
         {
-            var sut = new Pizza();
-
             Assert.NotNull(sut);
             //Assert.True(sut.Price > 0);
         }
@@ -23,8 +33,7 @@ namespace PizzaStore.Tests
         [Fact]
         public void Test_PizzaCrust()
         {
-            var expected = "Regular";
-            var sut = new Pizza();
+            var expected = option.crustRegular;
             var actual = sut.Crust;
 
             Assert.Contains(expected, sut.Crust);
@@ -34,8 +43,7 @@ namespace PizzaStore.Tests
         [Fact]
         public void Test_PizzaSize()
         {
-            var expected = 12;
-            var sut = new Pizza();
+            var expected = option.sizeMedium;
             var actual = sut.Size;
 
             Assert.Equal(expected, actual);
@@ -45,7 +53,6 @@ namespace PizzaStore.Tests
         [Fact]
         public void Test_PizzaToppings()
         {
-            var sut = new Pizza();
             var actual = sut.Toppings;
 
             Assert.NotNull(actual);
@@ -56,7 +63,6 @@ namespace PizzaStore.Tests
         [Fact]
         public void Test_PizzaPrice()
         {
-            var sut = new Pizza();
             sut.GetPriceOfPizza(sut);
             var actual = sut.Price;
 

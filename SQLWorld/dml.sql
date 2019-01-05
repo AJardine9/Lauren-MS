@@ -95,14 +95,3 @@ and CountryRegion = 'United States'-- only states above average -- min and max i
 group by StateProvince 
 order by CityAboveAvg desc
 
-select count(*), slc.firstname, sla.city, sla.StateProvince
-from SalesLT.Customer as slc
-left join SalesLT.CustomerAddress as slca on slca.CustomerID = slc.CustomerID
-left join SalesLT.Address as sla on sla.AddressID = slca.AddressID
-group by slc.CustomerID, FirstName, sla.City, sla.StateProvince
-having count(*) > 1
-
-select * from SalesLT.Customer
-
-select AddressID
-from SalesLT.Address

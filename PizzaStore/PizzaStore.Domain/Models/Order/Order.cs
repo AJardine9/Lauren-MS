@@ -8,6 +8,7 @@ namespace PizzaStore.Domain.Models.Order
 {
     public class Order
     {
+        public int Id { get; set; }
         public int OrderNumber
         {
             get
@@ -24,8 +25,9 @@ namespace PizzaStore.Domain.Models.Order
         public DateTime PurchaseTime { get; set; }
         public bool CanCancel { get; set; }
         public List<pi.Pizza> Pizzas { get; set; }
+        public string LocationAddress { get; set; }
 
-        public Order(string username, int lastordernumber)
+        public Order(string username = "", int lastordernumber = 0, string locationAddress = "")
         {
             Pizzas = new List<pi.Pizza>();
             Username = username;
@@ -33,6 +35,7 @@ namespace PizzaStore.Domain.Models.Order
             PurchaseTime = DateTime.Now;
             CanCancel = true;
             OrderNumber = lastordernumber;
+            LocationAddress = locationAddress;
         }
 
         #region Totals
@@ -54,6 +57,17 @@ namespace PizzaStore.Domain.Models.Order
                 pi.Pizza temp = new pi.Pizza();
                 temp.GetPriceOfPizza(pizza);
             }
+        }
+
+        public string AddressOfMostRecentOrder(List<pi.Pizza> pizzas)
+        {
+            string location = "";
+            foreach (pi.Pizza pizza in pizzas)
+            {
+                
+            }
+
+            return location;
         }
     }
 }
