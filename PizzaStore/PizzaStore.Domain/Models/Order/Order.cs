@@ -10,34 +10,16 @@ namespace PizzaStore.Domain.Models.Order
     {
         #region Field
         public int Id { get; set; }
-        public int OrderNumber
-        {
-            get
-            {
-                return OrderNumber;
-            }
-            set
-            {
-                OrderNumber = value + 1;
-            }
-        }
+        public int OrderNumber { get; set; } // fix in a minute
         public string Username { get; set; }
         public double Total { get; set; }
         public DateTime PurchaseTime { get; set; }
         public List<pi.Pizza> Pizzas { get; set; }
         public string LocationAddress { get; set; }
-        public void AddToTotal(double value)
-        {
-            Total += value;
-        }
 
-        public void SubtractFromTotal(double value)
-        {
-            Total -= value;
-        }
         #endregion
         #region Constructor
-        public Order(string username, int lastordernumber = 0, string locationAddress = "")
+        public Order(string username, int lastordernumber, string locationAddress)
         {
             Pizzas = new List<pi.Pizza>();
             Username = username;
@@ -65,6 +47,16 @@ namespace PizzaStore.Domain.Models.Order
             }
 
             return location;
+        }
+
+        public void AddToTotal(double value)
+        {
+            Total += value;
+        }
+
+        public void SubtractFromTotal(double value)
+        {
+            Total -= value;
         }
 
         public void CreatePizza()

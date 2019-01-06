@@ -33,11 +33,12 @@ namespace PizzaStore.Domain.Models.User
         {
             if (CurrentOrder != null)
             {
-                Orders.Add(CurrentOrder);
+                ord.Order order = DeepCopy();
+                Orders.Add(order);
                 LastLocationOrdered = CurrentOrder.LocationAddress;
                 LastTimeOrdered = CurrentOrder.PurchaseTime;
-                CancelOrder();
             }
+            CurrentOrder = null;
         }
 
         public void CreateOrder(int orderNumber, string address)
@@ -48,6 +49,20 @@ namespace PizzaStore.Domain.Models.User
         public void CancelOrder()
         {
             CurrentOrder = null;
+        }
+
+        public ord.Order DeepCopy()
+        {
+            ord.Order orderCopy = (ord.Order)this.MemberwiseClone();
+            orderCopy.Id = CurrentOrder.Id;
+            orderCopy.OrderNumber = CurrentOrder.OrderNumber;
+            orderCopy.Username = CurrentOrder.Username;
+            orderCopy.Total = CurrentOrder.Total;
+            orderCopy.PurchaseTime = CurrentOrder.PurchaseTime;
+            orderCopy.Pizzas = CurrentOrder.Pizzas;
+            orderCopy.LocationAddress = CurrentOrder.LocationAddress;
+
+            return orderCopy;
         }
         #endregion
     }

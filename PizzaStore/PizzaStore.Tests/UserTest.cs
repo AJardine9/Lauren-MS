@@ -21,7 +21,7 @@ namespace PizzaStore.Tests
             location = new lo.Location("test address");
 
             sut.CreateOrder(location.OrderNumber, location.Address);
-            sut.AddOrder();
+            //sut.AddOrder();
         }
 
         // TODO: Is the user not null?
@@ -41,18 +41,10 @@ namespace PizzaStore.Tests
         }
 
         // TODO: Data from the last location ordered from, both time and location
-        /*[Fact]
+        [Fact]
         public void Test_LastLocationOrdered()
         {
-            var expected = location.Address;
-            Assert.True(sut.LastLocationOrdered == expected);
-        }
-
-        // TODO: Does OrderHistory exist and contain orders?
-        [Fact]
-        public void Test_OrderHistory()
-        {
-            Assert.Contains(order, sut.Orders);
+            Assert.IsType<string>(sut.LastLocationOrdered);
         }
 
         // TODO: CreateOrder
@@ -61,6 +53,14 @@ namespace PizzaStore.Tests
         {
             sut.CreateOrder(location.OrderNumber, location.Address);
             Assert.True(sut.Orders.Count == 2);
+        }
+
+
+        // TODO: Does OrderHistory exist and contain orders?
+        /*[Fact]
+        public void Test_OrderHistory()
+        {
+            Assert.Contains(order, sut.Orders);
         }
 
         // TODO: CancelOrder order can only be cancelled if not yet submitted
