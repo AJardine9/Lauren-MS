@@ -9,7 +9,7 @@ namespace PizzaStore.Data
 {
     public class PizzaStoreDbContext : DbContext
     {
-        public DbSet<Location> Locations { get; set; }
-        public DbSet<Pi>
+        //public DbSet<Location> Locations { get; set; }
+        //public DbSet<Pi>
     }
 }

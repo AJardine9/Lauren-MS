@@ -8,6 +8,7 @@ namespace PizzaStore.Domain.Models.Order
 {
     public class Order
     {
+        #region Field
         public int Id { get; set; }
         public int OrderNumber
         {
@@ -26,19 +27,6 @@ namespace PizzaStore.Domain.Models.Order
         public bool CanCancel { get; set; }
         public List<pi.Pizza> Pizzas { get; set; }
         public string LocationAddress { get; set; }
-
-        public Order(string username = "", int lastordernumber = 0, string locationAddress = "")
-        {
-            Pizzas = new List<pi.Pizza>();
-            Username = username;
-            Total = (double)0.0;
-            PurchaseTime = DateTime.Now;
-            CanCancel = true;
-            OrderNumber = lastordernumber;
-            LocationAddress = locationAddress;
-        }
-
-        #region Totals
         public void AddToTotal(double value)
         {
             Total += value;
@@ -49,7 +37,19 @@ namespace PizzaStore.Domain.Models.Order
             Total -= value;
         }
         #endregion
-
+        #region Constructor
+        public Order(string username, int lastordernumber = 0, string locationAddress = "")
+        {
+            Pizzas = new List<pi.Pizza>();
+            Username = username;
+            Total = (double)0.0;
+            PurchaseTime = DateTime.Now;
+            CanCancel = true;
+            OrderNumber = lastordernumber;
+            LocationAddress = locationAddress;
+        }
+        #endregion
+        #region Methods
         public void PriceOfPizzas(List<pi.Pizza> pizzas)
         {
             foreach (pi.Pizza pizza in pizzas)
@@ -69,5 +69,6 @@ namespace PizzaStore.Domain.Models.Order
 
             return location;
         }
+        #endregion
     }
 }

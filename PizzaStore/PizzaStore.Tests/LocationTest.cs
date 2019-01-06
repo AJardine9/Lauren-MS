@@ -2,11 +2,18 @@
 using System.Collections.Generic;
 using System.Text;
 using Xunit;
+using lo = PizzaStore.Domain.Models.Location;
 
 namespace PizzaStore.Tests
 {
     public class LocationTest
     {
+        public lo.Location sut { get; private set; }
+
+        public LocationTest()
+        {
+            sut = new lo.Location();
+        }
         // TODO: Test that list of orders exists
         // no test for adding order to list necessary, as it's in User
         // no way to delete past orders

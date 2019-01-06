@@ -1,22 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using pizza = PizzaStore.Domain.Models;
 using Xunit;
-using PizzaStore.Domain.Models.Pizza;
+using pi = PizzaStore.Domain.Models.Pizza;
 
 namespace PizzaStore.Tests
 {
     public class PizzaTest
     {
-        public Pizza sut { get; private set; }
-        public PizzaOptions option { get; private set; }
+        public pi.Pizza sut { get; private set; }
+        public pi.PizzaOptions option { get; private set; }
 
         public PizzaTest()
         {
-            option = new PizzaOptions();
+            option = new pi.PizzaOptions();
             
-            sut = new Pizza(option.crustRegular, option.sizeMedium, (double)5.50);
+            sut = new pi.Pizza(option.crustRegular, option.sizeMedium, (double)5.50);
             sut.AddTopping(option.veggieGreenOlive);
             sut.AddTopping(option.meatBacon);
         }

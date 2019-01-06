@@ -11,12 +11,19 @@ namespace PizzaStore.Tests
     public class UserTest
     {
         public us.User sut { get; private set; }
+        public lo.Location location { get; private set; }
+        public ord.Order order { get; private set; }
 
         public UserTest()
         {
-            sut = new us.User();
-            sut.Username = "admin";
-            sut.Password = "password";
+            sut = new us.User("admin", "password");
+
+            location = new lo.Location("test address");
+            location.OrderNumber = 10;
+
+            order = new ord.Order(sut.Username, location.OrderNumber, location.Address);
+
+            sut.AddOrder();
         }
 
         // TODO: Is the user not null?
@@ -27,6 +34,7 @@ namespace PizzaStore.Tests
         }
 
         // TODO: Does the user have a username?
+        // If username exists, password exists but can't test as password is private
         [Fact]
         public void Test_Username()
         {
@@ -36,64 +44,50 @@ namespace PizzaStore.Tests
             Assert.True(expected == sut.Username);
         }
 
-        // TODO: Does the user have a password that is not null?
-        [Fact]
-        public void Test_Password()
-        {
-            var expected = "password";
-
-            Assert.IsType<string>(sut.Password);
-            Assert.True(expected == sut.Password);
-        }
-
         // TODO: Data from the last location ordered from, both time and location
         [Fact]
         public void Test_LastLocationOrdered()
         {
-            var location = new lo.Location();
-            location.OrderNumber = 10;
-            location.Address = "31 Main Ave. San Antonio, TX 78213";
-            var order = new ord.Order(sut.Username, location.OrderNumber, location.Address);
-            sut.Orders.Add(order);
-
-            Assert.Contains(order, sut.Orders);
-            Assert.True(sut.Orders.L)
+            var expected = location.Address;
+            Assert.True(sut.LastLocationOrdered == expected);
         }
 
         // TODO: Does OrderHistory exist and contain orders?
         [Fact]
         public void Test_OrderHistory()
         {
-            
-        }
-
-        // TODO: Add Order to OrderHistory
-        // can not remove order from OrderHistory
-        [Fact]
-        public void Test_AddToOrderHistory()
-        {
-
+            Assert.Contains(order, sut.Orders);
         }
 
         // TODO: CreateOrder
         [Fact]
         public void Test_CreateOrder()
         {
-
+            sut.CreateOrder(location.OrderNumber, location.Address);
+            Assert.True(sut.Orders.Count == 2);
         }
 
         // TODO: CancelOrder order can only be cancelled if not yet submitted
         [Fact]
         public void Test_CancelOrder()
         {
+            sut.CreateOrder(location.OrderNumber, location.Address);
+            sut.CancelOrder();
 
+            Assert.Null(sut.CurrentOrder);
+            Assert.IsType<ord.Order>(sut.CurrentOrder);
         }
 
         // TODO: SubmitOrder adds complete order to order history list, order at location list
         [Fact]
-        public void Test_SubmitOrder()
+        public void Test_AddOrder()
         {
+            sut.CreateOrder(location.OrderNumber, location.Address);
+            sut.AddOrder();
 
+            Assert.Null(sut.CurrentOrder);
+            Assert.IsType<ord.Order>(sut.CurrentOrder);
+            Assert.True(sut.Orders.Count == 3);
         }
     }
 }

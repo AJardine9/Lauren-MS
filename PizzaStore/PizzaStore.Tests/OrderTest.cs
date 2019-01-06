@@ -11,13 +11,22 @@ namespace PizzaStore.Tests
 {
     public class OrderTest
     {
+        public ord.Order sut { get; private set; }
+        public us.User user { get; private set; }
+
+        public OrderTest()
+        {
+            us.User user = new us.User();
+            user.Username = "admin";
+            user.Password = "password";
+            sut = new ord.Order(user.Username, 0, "test location");
+        }
+
         // TODO: Pull associated User object's username
         [Fact]
         public void Test_GetUser()
         {
-            var user = new us.User();
-            var sut = new ord.Order(user.Username, 0);
-            var expected = 0;
+            var expected = user.Username;
             var actual = sut.OrderNumber;
 
             Assert.IsType(expected.GetType(), actual);

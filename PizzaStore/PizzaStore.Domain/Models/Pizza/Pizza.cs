@@ -3,9 +3,16 @@ using pi = PizzaStore.Domain.Models.Pizza;
 
 namespace PizzaStore.Domain.Models.Pizza
 {
-    public class Pizza : APizza
+    public class Pizza
     {
+        #region Field
         public int Id { get; set; }
+        public string Crust { get; set; }
+        public int Size { get; set; }
+        public List<string> Toppings { get; set; }
+        public double Price { get; set; }
+        #endregion
+        #region Constructor
         public Pizza(string crust = "Regular", int size = 12, double price = (double)5.00)
         {
             Crust = crust;
@@ -13,40 +20,8 @@ namespace PizzaStore.Domain.Models.Pizza
             Toppings = new List<string>();
             Price = price;
         }
-
-        #region Crust
-        // allow for checking current crust
-        public string GetCrust()
-        {
-            return Crust;
-        }
-
-        // allow for setting what type of crust it is
-        public void SetCrust(string crust)
-        {
-            Crust = crust;
-        }
         #endregion
-        #region Size
-        // Get current size of pizza
-        public int GetSize()
-        {
-            return Size;
-        }
-
-        // Allow for size option
-        public void SetSize(int size)
-        {
-            Size = size;
-        }
-        #endregion
-        #region Toppings
-        // For use in displaying the current list of toppings
-        public List<string> GetToppings()
-        {
-            return Toppings;
-        }
-
+        #region Methods
         // Add a topping to the current list
         public bool AddTopping(string topping)
         {
@@ -73,7 +48,6 @@ namespace PizzaStore.Domain.Models.Pizza
             Toppings.Remove(oldTopping);
             Toppings.Add(newTopping);
         }
-        #endregion
 
         public void GetPriceOfPizza(Pizza pizza)
         {
@@ -84,5 +58,6 @@ namespace PizzaStore.Domain.Models.Pizza
                 Price += options.toppingPrice;
             }
         }
+        #endregion
     }
 }
