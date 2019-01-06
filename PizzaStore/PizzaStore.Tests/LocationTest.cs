@@ -20,14 +20,16 @@ namespace PizzaStore.Tests
         [Fact]
         public void Test_ListOfOrders()
         {
-
+            Assert.NotNull(sut.Orders);
+            Assert.True(sut.Orders.Count == 0);
         }
 
         // TODO: Test that a list of users exists
         [Fact]
         public void Test_ListOfUsers()
         {
-
+            Assert.NotNull(sut.Users);
+            Assert.True(sut.Users.Count == 0);
         }
 
         // TODO: Test that you can add a user to the list

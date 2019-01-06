@@ -9,15 +9,13 @@ namespace PizzaStore.Tests
     public class PizzaTest
     {
         public pi.Pizza sut { get; private set; }
-        public pi.PizzaOptions option { get; private set; }
 
         public PizzaTest()
         {
-            option = new pi.PizzaOptions();
             
-            sut = new pi.Pizza(option.crustRegular, option.sizeMedium, (double)5.50);
-            sut.AddTopping(option.veggieGreenOlive);
-            sut.AddTopping(option.meatBacon);
+            sut = new pi.Pizza(pi.EPizzaOptions.crustRegular, pi.EPizzaOptions.sizeMedium);
+            sut.AddTopping(pi.EPizzaOptions.veggieGreenOlive);
+            sut.AddTopping(pi.EPizzaOptions.meatBacon);
         }
 
         // TODO: Test Pizza
@@ -32,17 +30,17 @@ namespace PizzaStore.Tests
         [Fact]
         public void Test_PizzaCrust()
         {
-            var expected = option.crustRegular;
+            var expected = pi.EPizzaOptions.crustRegular;
             var actual = sut.Crust;
 
-            Assert.Contains(expected, sut.Crust);
+            Assert.Equal(expected, sut.Crust);
         }
 
         // TODO: Test that Pizza has crust size
         [Fact]
         public void Test_PizzaSize()
         {
-            var expected = option.sizeMedium;
+            var expected = pi.EPizzaOptions.sizeMedium;
             var actual = sut.Size;
 
             Assert.Equal(expected, actual);
@@ -62,10 +60,9 @@ namespace PizzaStore.Tests
         [Fact]
         public void Test_PizzaPrice()
         {
-            sut.GetPriceOfPizza(sut);
-            var actual = sut.Price;
+            var actual = sut.GetPriceOfPizza(sut);
 
-            Assert.True(sut.Price > 0);
+            Assert.True(actual > 0);
         }
     }
 }

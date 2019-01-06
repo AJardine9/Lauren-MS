@@ -24,7 +24,6 @@ namespace PizzaStore.Domain.Models.Order
         public string Username { get; set; }
         public double Total { get; set; }
         public DateTime PurchaseTime { get; set; }
-        public bool CanCancel { get; set; }
         public List<pi.Pizza> Pizzas { get; set; }
         public string LocationAddress { get; set; }
         public void AddToTotal(double value)
@@ -42,9 +41,8 @@ namespace PizzaStore.Domain.Models.Order
         {
             Pizzas = new List<pi.Pizza>();
             Username = username;
-            Total = (double)0.0;
+            Total = 0;
             PurchaseTime = DateTime.Now;
-            CanCancel = true;
             OrderNumber = lastordernumber;
             LocationAddress = locationAddress;
         }
@@ -54,8 +52,7 @@ namespace PizzaStore.Domain.Models.Order
         {
             foreach (pi.Pizza pizza in pizzas)
             {
-                pi.Pizza temp = new pi.Pizza();
-                temp.GetPriceOfPizza(pizza);
+                Total += pizza.GetPriceOfPizza(pizza);
             }
         }
 
@@ -69,6 +66,46 @@ namespace PizzaStore.Domain.Models.Order
 
             return location;
         }
+
+        public void CreatePizza()
+        {
+
+        }
+
+        public void AddToppingToPizza()
+        {
+
+        }
+
+        public void RemoveToppingFromPizza()
+        {
+
+        }
+
+        public void AdjustCrustOfPizza()
+        {
+
+        }
+
+        public void AdjustSizeOfPizza()
+        {
+
+        }
+
+        public void AddPizza()
+        {
+
+        }
+
+        public void RemovePizza()
+        {
+
+        }
+
+        /*public pi.Pizza GetPizza()
+        {
+            return
+        }*/
         #endregion
     }
 }

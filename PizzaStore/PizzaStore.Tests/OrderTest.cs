@@ -11,13 +11,17 @@ namespace PizzaStore.Tests
 {
     public class OrderTest
     {
+        /*
         public ord.Order sut { get; private set; }
         public us.User user { get; private set; }
+        public lo.Location location { get; set; }
+        //List<pi.EPizzaOptions> Toppings = new List<pi.EPizzaOptions>();
 
         public OrderTest()
         {
-            us.User user = new us.User("admin", "password");
-            sut = new ord.Order(user.Username, 0, "test location");
+            location = new lo.Location("test location");
+            user = new us.User("admin", "password");
+            sut = new ord.Order(user.Username, location.OrderNumber, location.Address);
         }
 
         // TODO: Pull associated User object's username
@@ -25,38 +29,32 @@ namespace PizzaStore.Tests
         public void Test_GetUser()
         {
             var expected = user.Username;
-            var actual = sut.OrderNumber;
 
-            Assert.IsType(expected.GetType(), actual);
+            Assert.IsType<string>(expected);
         }
 
         // TODO: What location is this purchase from?
         [Fact]
         public void Test_GetPurchaseLocation()
         {
-            var sut = new lo.Location("");
-            var expected = "";
-            var actual = sut.Address;
+            var actual = sut.LocationAddress;
 
-            Assert.IsType(expected.GetType(), actual);
+            Assert.IsType<string>(actual);
         }
 
         // TODO: What is the timestamp on this order?
         [Fact]
         public void Test_TimeStamp()
         {
-            var sut = new ord.Order(user.Username, 0);
-            var expected = DateTime.Now;
-            var actual = DateTime.Now;
+            var actual = sut.PurchaseTime;
 
-            Assert.IsType(expected.GetType(), actual);
+            Assert.IsType<DateTime>(actual);
         }
 
         // TODO: Running total for the order that does not go over PriceCap
         [Fact]
         public void Test_CurrentTotal()
         {
-            var sut = new ord.Order(user.Username, 0);
             var actual = sut.Total;
 
             Assert.IsType<double>(actual);
@@ -66,28 +64,25 @@ namespace PizzaStore.Tests
         [Fact]
         public void Test_ListOfPizza()
         {
-            var ing = new pi.PizzaOptions();
-            List<string> Toppings = new List<string>();
-            Toppings.Add(ing.veggieBlackOlive);
-            var sut = new pi.Pizza(ing.crustRegular, ing.sizeMedium);
+            var pizza = new pi.Pizza(pi.EPizzaOptions.crustRegular, pi.EPizzaOptions.sizeMedium);
+            pizza.AddTopping(pi.EPizzaOptions.veggieBlackOlive);
+            sut.Pizzas.Add(pizza);
 
-            Assert.True(Toppings.Count == 1);
-            Assert.NotEmpty(Toppings);
+            Assert.True(sut.Pizzas.Count == 1);
+            Assert.NotEmpty(sut.Pizzas);
         }
 
         // TODO: Test that Pizza can be created
         [Fact]
         public void Test_CreatePizza()
         {
-            var ing = new pi.PizzaOptions();
-            List<string> Toppings = new List<string>();
-            Toppings.Add(ing.veggieBlackOlive);
-            var sut = new pi.Pizza(ing.crustRegular, ing.sizeMedium);
+            var pizza = new pi.Pizza(pi.EPizzaOptions.crustRegular, pi.EPizzaOptions.sizeMedium);
+            pizza.AddTopping(pi.EPizzaOptions.veggieBlackOlive);
 
             Assert.NotNull(sut);
             Assert.IsType<pi.Pizza>(sut);
-            Assert.True(sut.Crust == ing.crustRegular);
-            Assert.True(sut.Size == ing.sizeMedium);
+            Assert.True(sut.Crust == pi.EPizzaOptions.crustRegular);
+            Assert.True(sut.Size == pi.EPizzaOptions.sizeMedium);
             Assert.True(sut.Toppings.Count == 1);
         }
 
@@ -95,63 +90,54 @@ namespace PizzaStore.Tests
         [Fact]
         public void Test_AddToppingToPizza()
         {
-            var ing = new pi.PizzaOptions();
-            List<string> Toppings = new List<string>();
-            Toppings.Add(ing.veggieBlackOlive);
-            var sut = new pi.Pizza(ing.crustRegular, ing.sizeMedium);
+            Toppings.Add(pi.EPizzaOptions.veggieBlackOlive);
+            var sut = new pi.Pizza(pi.EPizzaOptions.crustRegular, pi.EPizzaOptions.sizeMedium);
 
             Assert.True(sut.Toppings.Count == 1);
-            Assert.Contains(ing.veggieBlackOlive, sut.Toppings);
+            Assert.Contains(pi.EPizzaOptions.veggieBlackOlive, sut.Toppings);
         }
 
         // TODO: Remove Topping from pizza
         [Fact]
         public void Test_RemoveToppingFromPizza()
         {
-            var ing = new pi.PizzaOptions();
-            List<string> Toppings = new List<string>();
-            Toppings.Add(ing.veggieBlackOlive);
-            Toppings.Remove(ing.veggieBlackOlive);
-            var sut = new pi.Pizza(ing.crustRegular, ing.sizeMedium);
+            Toppings.Add(pi.EPizzaOptions.veggieBlackOlive);
+            Toppings.Remove(pi.EPizzaOptions.veggieBlackOlive);
+            var sut = new pi.Pizza(pi.EPizzaOptions.crustRegular, pi.EPizzaOptions.sizeMedium);
 
             Assert.True(sut.Toppings.Count == 0);
-            Assert.DoesNotContain(ing.veggieBlackOlive, sut.Toppings);
+            Assert.DoesNotContain(pi.EPizzaOptions.veggieBlackOlive, sut.Toppings);
         }
 
         // TODO: Adjust Crust Size
         [Fact]
         public void Test_AdjustCrustOfPizza()
         {
-            List<string> Toppings = new List<string>();
-            var ing = new pi.PizzaOptions();
-            var crust = ing.crustChicago;
-            var sut = new pi.Pizza(ing.crustRegular, ing.sizeMedium);
+            var crust = pi.EPizzaOptions.crustChicago;
+            var sut = new pi.Pizza(pi.EPizzaOptions.crustRegular, pi.EPizzaOptions.sizeMedium);
             sut.Crust = crust;
 
             Assert.True(sut.Crust == crust);
-            Assert.False(sut.Crust == ing.crustRegular);
+            Assert.False(sut.Crust == pi.EPizzaOptions.crustRegular);
         }
 
         // TODO: Change Crust Type
         [Fact]
         public void Test_AdjustSizeOfPizza()
         {
-            List<string> Toppings = new List<string>();
-            var ing = new pi.PizzaOptions();
-            var size = ing.sizeSmall;
-            var sut = new pi.Pizza(ing.crustRegular, ing.sizeExtraLarge);
+            var size = pi.EPizzaOptions.sizeSmall;
+            var sut = new pi.Pizza(pi.EPizzaOptions.crustRegular, pi.EPizzaOptions.sizeExtraLarge);
             sut.Size = size;
 
             Assert.True(sut.Size == size);
-            Assert.False(sut.Size == ing.sizeExtraLarge);
+            Assert.False(sut.Size == pi.EPizzaOptions.sizeExtraLarge);
         }
 
         // TODO: Test that a Pizza can be added to Pizzas
         [Fact]
         public void Test_AddPizzaToPizzas()
         {
-            var sut = new ord.Order(user.Username, 0);
-            var expected = new pi.Pizza("thin", 8);
+            var expected = new pi.Pizza(pi.EPizzaOptions.crustThin, pi.EPizzaOptions.sizeSmall);
             sut.Pizzas.Add(expected);
             var actual = sut.Pizzas;
 
@@ -163,8 +149,7 @@ namespace PizzaStore.Tests
         [Fact]
         public void Test_RemovePizzaFromPizzas()
         {
-            var sut = new ord.Order(user.Username, 0);
-            var expected = new pi.Pizza("thin", 8);
+            var expected = new pi.Pizza(pi.EPizzaOptions.crustThin, pi.EPizzaOptions.sizeSmall);
             sut.Pizzas.Add(expected);
             sut.Pizzas.Remove(expected);
             var actual = sut.Pizzas;
@@ -177,24 +162,13 @@ namespace PizzaStore.Tests
         [Fact]
         public void Test_GetPizzaFromPizzas()
         {
-            var sut = new ord.Order(user.Username, 0);
-            var expected = new pi.Pizza("thin", 8);
+            var expected = new pi.Pizza(pi.EPizzaOptions.crustThin, pi.EPizzaOptions.sizeSmall);
             sut.Pizzas.Add(expected);
             var actual = sut.Pizzas;
 
             Assert.True(sut.Pizzas.Count == 1);
             Assert.Contains(expected, actual);
         }
-
-        // TODO: Get price of specific pizza
-        [Fact]
-        public void Test_GetPriceOfPizzas()
-        {
-            var sut = new ord.Order(user.Username, 0);
-            var actual = new pi.Pizza("thin", 8);
-            sut.Pizzas.Add(actual);
-
-            Assert.True(actual.Price > 0);
-        }
+        */
     }
 }
