@@ -16,9 +16,7 @@ namespace PizzaStore.Tests
 
         public OrderTest()
         {
-            us.User user = new us.User();
-            user.Username = "admin";
-            user.Password = "password";
+            us.User user = new us.User("admin", "password");
             sut = new ord.Order(user.Username, 0, "test location");
         }
 
@@ -36,7 +34,7 @@ namespace PizzaStore.Tests
         [Fact]
         public void Test_GetPurchaseLocation()
         {
-            var sut = new lo.Location();
+            var sut = new lo.Location("");
             var expected = "";
             var actual = sut.Address;
 
@@ -47,7 +45,6 @@ namespace PizzaStore.Tests
         [Fact]
         public void Test_TimeStamp()
         {
-            var user = new us.User();
             var sut = new ord.Order(user.Username, 0);
             var expected = DateTime.Now;
             var actual = DateTime.Now;
@@ -59,7 +56,6 @@ namespace PizzaStore.Tests
         [Fact]
         public void Test_CurrentTotal()
         {
-            var user = new us.User();
             var sut = new ord.Order(user.Username, 0);
             var actual = sut.Total;
 
@@ -73,7 +69,7 @@ namespace PizzaStore.Tests
             var ing = new pi.PizzaOptions();
             List<string> Toppings = new List<string>();
             Toppings.Add(ing.veggieBlackOlive);
-            var sut = new pi.Pizza(ing.crustRegular, ing.sizeMedium, Toppings);
+            var sut = new pi.Pizza(ing.crustRegular, ing.sizeMedium);
 
             Assert.True(Toppings.Count == 1);
             Assert.NotEmpty(Toppings);
@@ -86,7 +82,7 @@ namespace PizzaStore.Tests
             var ing = new pi.PizzaOptions();
             List<string> Toppings = new List<string>();
             Toppings.Add(ing.veggieBlackOlive);
-            var sut = new pi.Pizza(ing.crustRegular, ing.sizeMedium, Toppings);
+            var sut = new pi.Pizza(ing.crustRegular, ing.sizeMedium);
 
             Assert.NotNull(sut);
             Assert.IsType<pi.Pizza>(sut);
@@ -102,7 +98,7 @@ namespace PizzaStore.Tests
             var ing = new pi.PizzaOptions();
             List<string> Toppings = new List<string>();
             Toppings.Add(ing.veggieBlackOlive);
-            var sut = new pi.Pizza(ing.crustRegular, ing.sizeMedium, Toppings);
+            var sut = new pi.Pizza(ing.crustRegular, ing.sizeMedium);
 
             Assert.True(sut.Toppings.Count == 1);
             Assert.Contains(ing.veggieBlackOlive, sut.Toppings);
@@ -116,7 +112,7 @@ namespace PizzaStore.Tests
             List<string> Toppings = new List<string>();
             Toppings.Add(ing.veggieBlackOlive);
             Toppings.Remove(ing.veggieBlackOlive);
-            var sut = new pi.Pizza(ing.crustRegular, ing.sizeMedium, Toppings);
+            var sut = new pi.Pizza(ing.crustRegular, ing.sizeMedium);
 
             Assert.True(sut.Toppings.Count == 0);
             Assert.DoesNotContain(ing.veggieBlackOlive, sut.Toppings);
@@ -129,7 +125,7 @@ namespace PizzaStore.Tests
             List<string> Toppings = new List<string>();
             var ing = new pi.PizzaOptions();
             var crust = ing.crustChicago;
-            var sut = new pi.Pizza(ing.crustRegular, ing.sizeMedium, Toppings);
+            var sut = new pi.Pizza(ing.crustRegular, ing.sizeMedium);
             sut.Crust = crust;
 
             Assert.True(sut.Crust == crust);
@@ -143,7 +139,7 @@ namespace PizzaStore.Tests
             List<string> Toppings = new List<string>();
             var ing = new pi.PizzaOptions();
             var size = ing.sizeSmall;
-            var sut = new pi.Pizza(ing.crustRegular, ing.sizeExtraLarge, Toppings);
+            var sut = new pi.Pizza(ing.crustRegular, ing.sizeExtraLarge);
             sut.Size = size;
 
             Assert.True(sut.Size == size);
@@ -154,9 +150,8 @@ namespace PizzaStore.Tests
         [Fact]
         public void Test_AddPizzaToPizzas()
         {
-            var user = new us.User();
             var sut = new ord.Order(user.Username, 0);
-            var expected = new pi.Pizza("thin", 8, null);
+            var expected = new pi.Pizza("thin", 8);
             sut.Pizzas.Add(expected);
             var actual = sut.Pizzas;
 
@@ -168,9 +163,8 @@ namespace PizzaStore.Tests
         [Fact]
         public void Test_RemovePizzaFromPizzas()
         {
-            var user = new us.User();
             var sut = new ord.Order(user.Username, 0);
-            var expected = new pi.Pizza("thin", 8, null);
+            var expected = new pi.Pizza("thin", 8);
             sut.Pizzas.Add(expected);
             sut.Pizzas.Remove(expected);
             var actual = sut.Pizzas;
@@ -183,9 +177,8 @@ namespace PizzaStore.Tests
         [Fact]
         public void Test_GetPizzaFromPizzas()
         {
-            var user = new us.User();
             var sut = new ord.Order(user.Username, 0);
-            var expected = new pi.Pizza("thin", 8, null);
+            var expected = new pi.Pizza("thin", 8);
             sut.Pizzas.Add(expected);
             var actual = sut.Pizzas;
 
@@ -197,9 +190,8 @@ namespace PizzaStore.Tests
         [Fact]
         public void Test_GetPriceOfPizzas()
         {
-            var user = new us.User();
             var sut = new ord.Order(user.Username, 0);
-            var actual = new pi.Pizza("thin", 8, null, 0);
+            var actual = new pi.Pizza("thin", 8);
             sut.Pizzas.Add(actual);
 
             Assert.True(actual.Price > 0);

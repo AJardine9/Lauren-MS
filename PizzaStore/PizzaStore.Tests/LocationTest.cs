@@ -12,7 +12,7 @@ namespace PizzaStore.Tests
 
         public LocationTest()
         {
-            sut = new lo.Location();
+            sut = new lo.Location("test address");
         }
         // TODO: Test that list of orders exists
         // no test for adding order to list necessary, as it's in User

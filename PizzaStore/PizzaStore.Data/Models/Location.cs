@@ -5,7 +5,7 @@ using lo = PizzaStore.Domain.Models.Location;
 
 namespace PizzaStore.Data.Models
 {
-    class Location : lo.Location
+    class Location
     {
 
     }

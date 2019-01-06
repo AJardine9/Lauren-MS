@@ -5,7 +5,7 @@ using pi = PizzaStore.Domain.Models.Pizza;
 
 namespace PizzaStore.Data.Models
 {
-    class Pizza : pi.Pizza
+    class Pizza
     {
 
     }

@@ -5,7 +5,7 @@ using us = PizzaStore.Domain.Models.User;
 
 namespace PizzaStore.Data.Models
 {
-    class User : us.User
+    class User
     {
 
     }

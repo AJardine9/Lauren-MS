@@ -5,7 +5,7 @@ using ord = PizzaStore.Domain.Models.Order;
 
 namespace PizzaStore.Data.Models
 {
-    public class Order : ord.Order
+    public class Order
     {
     }
 }
