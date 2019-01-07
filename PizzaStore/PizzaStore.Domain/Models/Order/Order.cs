@@ -85,7 +85,15 @@ namespace PizzaStore.Domain.Models.Order
 
         public bool RemoveToppingFromPizza(pi.EPizzaOptions option)
         {
-            if (CurrPizza.Toppings.Contains(option))
+            if (CurrPizza.Toppings.Contains(option)
+                && option != pi.EPizzaOptions.crustCheese
+                && option != pi.EPizzaOptions.crustChicago
+                && option != pi.EPizzaOptions.crustRegular
+                && option != pi.EPizzaOptions.crustThin
+                && option != pi.EPizzaOptions.sizeExtraLarge
+                && option != pi.EPizzaOptions.sizeLarge
+                && option != pi.EPizzaOptions.sizeMedium
+                && option != pi.EPizzaOptions.sizeSmall)
             {
                 CurrPizza.Toppings.Remove(option);
                 return true;
@@ -96,30 +104,66 @@ namespace PizzaStore.Domain.Models.Order
             }
         }
 
-        public void AdjustCrustOfPizza()
+        public bool AdjustCrustOfPizza(pi.EPizzaOptions option)
         {
-
+            if (option == pi.EPizzaOptions.crustCheese
+                || option == pi.EPizzaOptions.crustChicago
+                || option == pi.EPizzaOptions.crustRegular
+                || option == pi.EPizzaOptions.crustThin)
+            {
+                CurrPizza.Crust = option;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        public void AdjustSizeOfPizza()
+        public bool AdjustSizeOfPizza(pi.EPizzaOptions option)
         {
-
+            if (option == pi.EPizzaOptions.sizeExtraLarge
+                || option == pi.EPizzaOptions.sizeLarge
+                || option == pi.EPizzaOptions.sizeMedium
+                || option == pi.EPizzaOptions.sizeSmall)
+            {
+                CurrPizza.Size = option;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public void AddPizza()
         {
-
+            if (CurrPizza != null)
+            {
+                Pizzas.Add(CurrPizza);
+                CurrPizza = null;
+            }
         }
 
-        public void RemovePizza()
+        public void RemovePizzaFromPizzas(pi.Pizza pizza)
         {
-
+            if (Pizzas.Contains(pizza))
+            {
+                Pizzas.Remove(pizza);
+            }
         }
 
-        /*public pi.Pizza GetPizza()
+        public pi.Pizza GetPizzaFromPizzas(pi.Pizza pizza)
         {
-            return
-        }*/
+            if (pizza != null
+                && Pizzas.Count > 0
+                && Pizzas.Contains(pizza))
+            {
+                CurrPizza = pizza;
+            }
+
+            return CurrPizza;
+        }
         #endregion
     }
 }

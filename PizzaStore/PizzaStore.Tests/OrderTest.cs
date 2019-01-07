@@ -63,12 +63,17 @@ namespace PizzaStore.Tests
         [Fact]
         public void Test_ListOfPizza()
         {
-            var pizza = new pi.Pizza(pi.EPizzaOptions.crustRegular, pi.EPizzaOptions.sizeMedium);
-            pizza.AddTopping(pi.EPizzaOptions.veggieBlackOlive);
-            sut.Pizzas.Add(pizza);
+            sut.CreatePizza();
+            sut.AddToppingToPizza(pi.EPizzaOptions.veggiePineapple);
+            sut.AddPizza();
+            sut.CreatePizza();
+            sut.AddToppingToPizza(pi.EPizzaOptions.meatPepperoni);
+            sut.AddPizza();
 
-            Assert.True(sut.Pizzas.Count == 1);
+            Assert.True(sut.Pizzas.Count == 2);
             Assert.NotEmpty(sut.Pizzas);
+            Assert.Contains(pi.EPizzaOptions.veggiePineapple, sut.Pizzas[0].Toppings);
+            Assert.Contains(pi.EPizzaOptions.meatPepperoni, sut.Pizzas[1].Toppings);
         }
 
         // TODO: Test that Pizza can be created
@@ -110,61 +115,58 @@ namespace PizzaStore.Tests
         [Fact]
         public void Test_AdjustCrustOfPizza()
         {
-            var crust = pi.EPizzaOptions.crustChicago;
-            var sut = new pi.Pizza(pi.EPizzaOptions.crustRegular, pi.EPizzaOptions.sizeMedium);
-            sut.Crust = crust;
+            sut.CreatePizza();
+            var actual = sut.AdjustCrustOfPizza(pi.EPizzaOptions.crustThin);
 
-            Assert.True(sut.Crust == crust);
-            Assert.False(sut.Crust == pi.EPizzaOptions.crustRegular);
+            Assert.True(actual);
+            Assert.True(sut.CurrPizza.Crust == pi.EPizzaOptions.crustThin);
         }
 
         // TODO: Change Crust Type
         [Fact]
         public void Test_AdjustSizeOfPizza()
         {
-            var size = pi.EPizzaOptions.sizeSmall;
-            var sut = new pi.Pizza(pi.EPizzaOptions.crustRegular, pi.EPizzaOptions.sizeExtraLarge);
-            sut.Size = size;
+            sut.CreatePizza();
+            var actual = sut.AdjustSizeOfPizza(pi.EPizzaOptions.sizeLarge);
 
-            Assert.True(sut.Size == size);
-            Assert.False(sut.Size == pi.EPizzaOptions.sizeExtraLarge);
+            Assert.True(actual);
+            Assert.True(sut.CurrPizza.Size == pi.EPizzaOptions.sizeLarge);
         }
 
         // TODO: Test that a Pizza can be added to Pizzas
         [Fact]
         public void Test_AddPizzaToPizzas()
         {
-            var expected = new pi.Pizza(pi.EPizzaOptions.crustThin, pi.EPizzaOptions.sizeSmall);
-            sut.Pizzas.Add(expected);
-            var actual = sut.Pizzas;
+            sut.CreatePizza();
+            sut.AddPizza();
 
-            Assert.True(sut.Pizzas.Count == 1);
-            Assert.Contains(expected, actual);
+            Assert.True(sut.Pizzas.Count > 0);
         }
 
         // TODO: Test that a Pizza can be removed from Pizzas
         [Fact]
         public void Test_RemovePizzaFromPizzas()
         {
-            var expected = new pi.Pizza(pi.EPizzaOptions.crustThin, pi.EPizzaOptions.sizeSmall);
-            sut.Pizzas.Add(expected);
-            sut.Pizzas.Remove(expected);
-            var actual = sut.Pizzas;
+            sut.CreatePizza();
+            sut.AddPizza();
+            var expected = sut.GetPizzaFromPizzas(sut.Pizzas[0]);
+            sut.RemovePizzaFromPizzas(expected);
 
             Assert.True(sut.Pizzas.Count == 0);
-            Assert.DoesNotContain(expected, actual);
+            Assert.DoesNotContain(expected, sut.Pizzas);
         }
 
         // TODO: Get Specific Pizza from Pizzas
         [Fact]
         public void Test_GetPizzaFromPizzas()
         {
-            var expected = new pi.Pizza(pi.EPizzaOptions.crustThin, pi.EPizzaOptions.sizeSmall);
-            sut.Pizzas.Add(expected);
-            var actual = sut.Pizzas;
+            sut.CreatePizza();
+            sut.AddPizza();
+            var expected = sut.Pizzas[0];
+            var actual = sut.GetPizzaFromPizzas(expected);
 
-            Assert.True(sut.Pizzas.Count == 1);
-            Assert.Contains(expected, actual);
+            Assert.NotNull(sut.CurrPizza);
+            Assert.True(actual == expected);
         }
     }
 }
