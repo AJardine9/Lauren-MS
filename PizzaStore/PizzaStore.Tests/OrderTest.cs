@@ -11,7 +11,6 @@ namespace PizzaStore.Tests
 {
     public class OrderTest
     {
-        /*
         public ord.Order sut { get; private set; }
         public us.User user { get; private set; }
         public lo.Location location { get; set; }
@@ -76,37 +75,35 @@ namespace PizzaStore.Tests
         [Fact]
         public void Test_CreatePizza()
         {
-            var pizza = new pi.Pizza(pi.EPizzaOptions.crustRegular, pi.EPizzaOptions.sizeMedium);
-            pizza.AddTopping(pi.EPizzaOptions.veggieBlackOlive);
+            sut.CreatePizza();
 
-            Assert.NotNull(sut);
-            Assert.IsType<pi.Pizza>(sut);
-            Assert.True(sut.Crust == pi.EPizzaOptions.crustRegular);
-            Assert.True(sut.Size == pi.EPizzaOptions.sizeMedium);
-            Assert.True(sut.Toppings.Count == 1);
+            Assert.NotNull(sut.CurrPizza);
+            Assert.IsType<pi.Pizza>(sut.CurrPizza);
+            Assert.True(sut.CurrPizza.Crust == pi.EPizzaOptions.crustRegular);
+            Assert.True(sut.CurrPizza.Size == pi.EPizzaOptions.sizeMedium);
+            Assert.True(sut.CurrPizza.Toppings.Count == 2);
         }
 
         // TODO: Add Topping to pizza
         [Fact]
         public void Test_AddToppingToPizza()
         {
-            Toppings.Add(pi.EPizzaOptions.veggieBlackOlive);
-            var sut = new pi.Pizza(pi.EPizzaOptions.crustRegular, pi.EPizzaOptions.sizeMedium);
+            sut.CreatePizza();
+            bool actual = sut.AddToppingToPizza(pi.EPizzaOptions.veggieBlackOlive);
 
-            Assert.True(sut.Toppings.Count == 1);
-            Assert.Contains(pi.EPizzaOptions.veggieBlackOlive, sut.Toppings);
+            Assert.True(actual);
+            Assert.Contains(pi.EPizzaOptions.veggieBlackOlive, sut.CurrPizza.Toppings);
         }
 
         // TODO: Remove Topping from pizza
         [Fact]
         public void Test_RemoveToppingFromPizza()
         {
-            Toppings.Add(pi.EPizzaOptions.veggieBlackOlive);
-            Toppings.Remove(pi.EPizzaOptions.veggieBlackOlive);
-            var sut = new pi.Pizza(pi.EPizzaOptions.crustRegular, pi.EPizzaOptions.sizeMedium);
+            sut.CreatePizza();
+            sut.RemoveToppingFromPizza(pi.EPizzaOptions.cheeseCheddar);
 
-            Assert.True(sut.Toppings.Count == 0);
-            Assert.DoesNotContain(pi.EPizzaOptions.veggieBlackOlive, sut.Toppings);
+            Assert.True(sut.CurrPizza.Toppings.Count == 1);
+            Assert.DoesNotContain(pi.EPizzaOptions.cheeseCheddar, sut.CurrPizza.Toppings);
         }
 
         // TODO: Adjust Crust Size
@@ -169,6 +166,5 @@ namespace PizzaStore.Tests
             Assert.True(sut.Pizzas.Count == 1);
             Assert.Contains(expected, actual);
         }
-        */
     }
 }

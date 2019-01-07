@@ -8,7 +8,7 @@ namespace PizzaStore.Domain.Models.Pizza
     {
         #region Toppings
         // Cheeses
-        cheddarCheese, cheeseMozzarella,
+        cheeseCheddar, cheeseMozzarella,
 
         // Sauces
         sauceTomato, sauceMarinara, sauceAlfredo, sauceBBQ,

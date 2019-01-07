@@ -16,6 +16,7 @@ namespace PizzaStore.Domain.Models.Order
         public DateTime PurchaseTime { get; set; }
         public List<pi.Pizza> Pizzas { get; set; }
         public string LocationAddress { get; set; }
+        public pi.Pizza CurrPizza { get; set; }
 
         #endregion
         #region Constructor
@@ -27,6 +28,7 @@ namespace PizzaStore.Domain.Models.Order
             PurchaseTime = DateTime.Now;
             OrderNumber = lastordernumber;
             LocationAddress = locationAddress;
+            CurrPizza = null;
         }
         #endregion
         #region Methods
@@ -61,17 +63,37 @@ namespace PizzaStore.Domain.Models.Order
 
         public void CreatePizza()
         {
+            // default pizza is cheese with tomato sauce
+            CurrPizza = new pi.Pizza(pi.EPizzaOptions.crustRegular, pi.EPizzaOptions.sizeMedium);
+            CurrPizza.Toppings.Add(pi.EPizzaOptions.cheeseCheddar);
+            CurrPizza.Toppings.Add(pi.EPizzaOptions.sauceTomato);
 
         }
 
-        public void AddToppingToPizza()
+        public bool AddToppingToPizza(pi.EPizzaOptions option)
         {
-
+            if (CurrPizza.Toppings.Count < 5)
+            {
+                CurrPizza.Toppings.Add(option);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        public void RemoveToppingFromPizza()
+        public bool RemoveToppingFromPizza(pi.EPizzaOptions option)
         {
-
+            if (CurrPizza.Toppings.Contains(option))
+            {
+                CurrPizza.Toppings.Remove(option);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public void AdjustCrustOfPizza()

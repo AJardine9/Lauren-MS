@@ -33,12 +33,13 @@ namespace PizzaStore.Domain.Models.User
         {
             if (CurrentOrder != null)
             {
-                ord.Order order = DeepCopy();
-                Orders.Add(order);
+                //ord.Order order = DeepCopy();
+                //Orders.Add(order);
+                Orders.Add(CurrentOrder);
                 LastLocationOrdered = CurrentOrder.LocationAddress;
                 LastTimeOrdered = CurrentOrder.PurchaseTime;
+                CurrentOrder = null;
             }
-            CurrentOrder = null;
         }
 
         public void CreateOrder(int orderNumber, string address)

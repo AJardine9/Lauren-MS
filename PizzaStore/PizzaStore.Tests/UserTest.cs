@@ -21,7 +21,6 @@ namespace PizzaStore.Tests
             location = new lo.Location("test address");
 
             sut.CreateOrder(location.OrderNumber, location.Address);
-            //sut.AddOrder();
         }
 
         // TODO: Is the user not null?
@@ -52,15 +51,16 @@ namespace PizzaStore.Tests
         public void Test_CreateOrder()
         {
             sut.CreateOrder(location.OrderNumber, location.Address);
-            Assert.True(sut.Orders.Count == 2);
+            Assert.NotNull(sut.CurrentOrder);
         }
 
 
         // TODO: Does OrderHistory exist and contain orders?
-        /*[Fact]
+        [Fact]
         public void Test_OrderHistory()
         {
-            Assert.Contains(order, sut.Orders);
+            Assert.NotNull(sut.Orders);
+            Assert.IsType<List<ord.Order>>(sut.Orders);
         }
 
         // TODO: CancelOrder order can only be cancelled if not yet submitted
@@ -71,7 +71,6 @@ namespace PizzaStore.Tests
             sut.CancelOrder();
 
             Assert.Null(sut.CurrentOrder);
-            Assert.IsType<ord.Order>(sut.CurrentOrder);
         }
 
         // TODO: SubmitOrder adds complete order to order history list, order at location list
@@ -82,8 +81,7 @@ namespace PizzaStore.Tests
             sut.AddOrder();
 
             Assert.Null(sut.CurrentOrder);
-            Assert.IsType<ord.Order>(sut.CurrentOrder);
-            Assert.True(sut.Orders.Count == 3);
-        }*/
+            Assert.True(sut.Orders.Count > 0);
+        }
     }
 }

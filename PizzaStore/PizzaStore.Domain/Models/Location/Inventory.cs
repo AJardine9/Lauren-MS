@@ -13,7 +13,7 @@ namespace PizzaStore.Domain.Models.Location
         private Dictionary<EPizzaOptions, double> price = new Dictionary<EPizzaOptions, double>()
         {
             // Cheese
-            {EPizzaOptions.cheddarCheese, 2},
+            {EPizzaOptions.cheeseCheddar, 2},
             {EPizzaOptions.cheeseMozzarella, 2},
 
             // Sauce
@@ -55,7 +55,7 @@ namespace PizzaStore.Domain.Models.Location
         private Dictionary<EPizzaOptions, int> stock = new Dictionary<EPizzaOptions, int>()
         {
             // Cheese
-            {EPizzaOptions.cheddarCheese, 10},
+            {EPizzaOptions.cheeseCheddar, 10},
             {EPizzaOptions.cheeseMozzarella, 10},
 
             // Sauce
