@@ -3,16 +3,21 @@ using System.Collections.Generic;
 using System.Text;
 using Xunit;
 using lo = PizzaStore.Domain.Models.Location;
+using us = PizzaStore.Domain.Models.User;
+using ord = PizzaStore.Domain.Models.Order;
 
 namespace PizzaStore.Tests
 {
     public class LocationTest
     {
         public lo.Location sut { get; private set; }
+        public us.User user { get; private set; }
+        public ord.Order order { get; private set; }
 
         public LocationTest()
         {
             sut = new lo.Location("test address");
+            user = new us.User("admin", "password");
         }
         // TODO: Test that list of orders exists
         // no test for adding order to list necessary, as it's in User
@@ -37,7 +42,10 @@ namespace PizzaStore.Tests
         [Fact]
         public void Test_AddUser()
         {
+            user.CreateOrder(sut.OrderNumber, sut.Address);
+            user.AddOrder();
 
+            Assert.True(sut.Users.Count > 0);
         }
 
         // TODO: Test that inventory exists and is not null
@@ -132,10 +140,5 @@ namespace PizzaStore.Tests
         {
 
         }
-
-
-        // TODO: Create Account
-        // TODO: Register Account
-        // TODO: Add User to List of Users
     }
 }

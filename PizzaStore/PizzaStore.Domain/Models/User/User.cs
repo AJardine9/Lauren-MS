@@ -52,19 +52,19 @@ namespace PizzaStore.Domain.Models.User
             CurrentOrder = null;
         }
 
-        public ord.Order DeepCopy()
-        {
-            ord.Order orderCopy = (ord.Order)this.MemberwiseClone();
-            orderCopy.Id = CurrentOrder.Id;
-            orderCopy.OrderNumber = CurrentOrder.OrderNumber;
-            orderCopy.Username = CurrentOrder.Username;
-            orderCopy.Total = CurrentOrder.Total;
-            orderCopy.PurchaseTime = CurrentOrder.PurchaseTime;
-            orderCopy.Pizzas = CurrentOrder.Pizzas;
-            orderCopy.LocationAddress = CurrentOrder.LocationAddress;
+        //public ord.Order DeepCopy()
+        //{
+        //    ord.Order orderCopy = (ord.Order)this.MemberwiseClone();
+        //    orderCopy.Id = CurrentOrder.Id;
+        //    orderCopy.OrderNumber = CurrentOrder.OrderNumber;
+        //    orderCopy.Username = CurrentOrder.Username;
+        //    orderCopy.Total = CurrentOrder.Total;
+        //    orderCopy.PurchaseTime = CurrentOrder.PurchaseTime;
+        //    orderCopy.Pizzas = CurrentOrder.Pizzas;
+        //    orderCopy.LocationAddress = CurrentOrder.LocationAddress;
 
-            return orderCopy;
-        }
+        //    return orderCopy;
+        //}
         #endregion
     }
 }
