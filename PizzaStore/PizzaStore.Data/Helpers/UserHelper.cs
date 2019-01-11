@@ -59,14 +59,12 @@ namespace PizzaStore.Data.Helpers
             var dataUser = new User()
             {
                 Username = user.Username,
-                Password = user.Password,
-                LastLocationOrdered = user.LastLocationOrdered.ToString(),
-                LastTimeOrdered = user.LastTimeOrdered
+                Password = user.Password
             };
 
             _db.User.Add(dataUser);
 
-            return _db.SaveChanges() == 1;
+            return _db.SaveChanges() == 2;
         }
     }
 }

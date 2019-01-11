@@ -58,10 +58,10 @@ namespace PizzaStore.CliClient.Models
             }
             else
             {
-                LoggedMenu(username);
+                LoggedMenu(user);
             }
 
-            LoggedMenu(username);
+            LoggedMenu(user);
         }
 
         public void Register()
@@ -88,8 +88,9 @@ namespace PizzaStore.CliClient.Models
             }
             else
             {
+                user = new us.User(username, password);
                 UserViewModel.SetUser(user);
-                LoggedMenu(username);
+                LoggedMenu(user);
             }
         }
 
@@ -108,10 +109,10 @@ namespace PizzaStore.CliClient.Models
                 switch (choice)
                 {
                     case 1:
-                        OrderPizzaMenu(user);
+                        //OrderPizzaMenu();
                         break;
                     case 2:
-                        UserAccountMenu();
+                        UserAccountMenu(user);
                         break;
                     case 3:
                         LocationMenu();
@@ -133,9 +134,9 @@ namespace PizzaStore.CliClient.Models
         {
             
             Console.WriteLine("Which Location would you like to order from?");
-            var location = GetLocation();
+            //var location = GetLocation();
 
-            var order = new ord.Order(user, );
+            //var order = new ord.Order(user, );
             Console.WriteLine("What type of crust would you like for your pizza?");
 
 
@@ -144,21 +145,30 @@ namespace PizzaStore.CliClient.Models
 
         }
 
-        public void UserAccountMenu()
+        public void UserAccountMenu(us.User user)
         {
+            Console.WriteLine("Username: " + user.Username);
+            Console.WriteLine("Last Location Ordered: " + user.LastLocationOrdered);
+            Console.WriteLine("Last Time Ordered: " + user.LastTimeOrdered);
 
-        }
+            // TODO: Display Order History
+            Console.WriteLine("Order History not currently available.");
+
+            Console.WriteLine("Press enter to return.");
+            Console.ReadLine();
+            LoggedMenu(user);
+            }
 
         public void LocationMenu()
         {
 
         }
 
+        /*
         public lo.Location GetLocation()
         {
             //TODO Check location options
             return location;
-        }
-        */
+        }*/
     }
 }

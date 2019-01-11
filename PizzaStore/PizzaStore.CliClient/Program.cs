@@ -1,4 +1,5 @@
 ﻿using PizzaStore.CliClient.ViewModels;
+using PizzaStore.CliClient.Models;
 using System;
 
 namespace PizzaStore.CliClient
@@ -7,14 +8,13 @@ namespace PizzaStore.CliClient
     {
         static void Main(string[] args)
         {
-            DisplayUsers();
+            var menus = new Menus();
+            menus.MainMenu();
         }
 
         static void DisplayUsers()
         {
-            var users = new UserViewModel();
-
-            foreach (var user in users.GetUsers())
+            foreach (var user in UserViewModel.GetUsers())
             {
                 Console.WriteLine(user.UserId);
             }
