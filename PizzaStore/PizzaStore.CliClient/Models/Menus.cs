@@ -161,14 +161,12 @@ namespace PizzaStore.CliClient.Models
 
         public void LocationMenu()
         {
+            Console.WriteLine("The following locations are available.");
 
+            foreach (var location in LocationViewModel.GetLocations())
+            {
+                Console.WriteLine("Street: " + location.Address.Street + ", City: " + location.Address.City + ", State: " + location.Address.State);
+            }
         }
-
-        /*
-        public lo.Location GetLocation()
-        {
-            //TODO Check location options
-            return location;
-        }*/
     }
 }

@@ -10,9 +10,24 @@ namespace PizzaStore.Data.Helpers
 {
     public static class LocationHelper
     {
-        /*
+        
         private static PizzaStoreDbContext _db = new PizzaStoreDbContext();
+        
+        public static List<lo.Location> GetLocations()
+        {
+            var du = new List<lo.Location>();
 
+            foreach (var location in _db.Location.ToList())
+            {
+                var dataAddress = _db.Address.Where(a => a.AddressId == location.AddressId).FirstOrDefault();
+                var address = new pdm.Address(dataAddress.Street, dataAddress.City, dataAddress.State);
+
+                du.Add(new lo.Location(address));
+            }
+
+            return du;
+        }
+        /*
         public static double GetLocationSales(lo.Location location)
         {
             var orders = OrderHelper.GetOrderByLocation(location);
