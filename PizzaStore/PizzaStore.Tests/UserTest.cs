@@ -4,24 +4,49 @@ using System.Text;
 using lo = PizzaStore.Domain.Models.Location;
 using ord = PizzaStore.Domain.Models.Order;
 using us = PizzaStore.Domain.Models.User;
+using PizzaStore.Domain.Models
 using Xunit;
 
 namespace PizzaStore.Tests
 {
     public class UserTest
     {
-        public us.User sut { get; private set; }
-        public lo.Location location { get; private set; }
+        private readonly us.User sut;
+        private readonly lo.Location location;
+        private readonly Address address;
+        private readonly Address userAddress;
         public ord.Order order { get; private set; }
 
         public UserTest()
         {
-            sut = new us.User("admin", "password");
+            address = new Address("1123 Fletcher St", "Tampa", "Florida");
+            userAddress = new Address("51 Viking Oak", "Tampa", "Florida");
 
-            location = new lo.Location("test address");
+            sut = new us.User("admin", "password", userAddress);
+            location = new lo.Location(address);
 
             sut.CreateOrder(location.OrderNumber, location.Address);
         }
+
+        //public UserTest()
+        //{
+        //    sut = new User()
+        //    {
+        //        Name = "fred",
+        //        Address = new Address()
+        //        {
+        //            City = "Tampa",
+        //            State = "Florida",
+        //            Street = "Fletcher Ave"
+        //        }
+        //    };
+        //}
+
+        //[Fact]
+        //public void Test_SetDataUser()
+        //{
+        //    Assert.True(UserHelper.SetUser(sut));
+        //}
 
         // TODO: Is the user not null?
         [Fact]

@@ -8,12 +8,11 @@ namespace PizzaStore.Domain.Models.User
     public class User
     {
         #region Field
-        public int Id { get; set; }
+        public int UserId { get; set; }
         public string Username { get; private set; }
-        private string Password { get; set; }
-
+        public string Password { get; set; }
         public List<ord.Order> Orders { get; private set; }
-        public string LastLocationOrdered { get; private set; }
+        public Address LastLocationOrdered { get; private set; }
         public DateTime LastTimeOrdered { get; private set; }
         public ord.Order CurrentOrder { get; private set; }
         #endregion
@@ -23,7 +22,7 @@ namespace PizzaStore.Domain.Models.User
             Username = username;
             Password = password;
             Orders = new List<ord.Order>();
-            LastLocationOrdered = "No Previous Orders";
+            LastLocationOrdered = null;
             LastTimeOrdered = new DateTime();
             CurrentOrder = null;
         }
@@ -33,8 +32,6 @@ namespace PizzaStore.Domain.Models.User
         {
             if (CurrentOrder != null)
             {
-                //ord.Order order = DeepCopy();
-                //Orders.Add(order);
                 Orders.Add(CurrentOrder);
                 LastLocationOrdered = CurrentOrder.LocationAddress;
                 LastTimeOrdered = CurrentOrder.PurchaseTime;
@@ -42,7 +39,7 @@ namespace PizzaStore.Domain.Models.User
             }
         }
 
-        public void CreateOrder(int orderNumber, string address)
+        public void CreateOrder(int orderNumber, Address address)
         {
             CurrentOrder = new ord.Order(Username, orderNumber, address);
         }
@@ -51,20 +48,6 @@ namespace PizzaStore.Domain.Models.User
         {
             CurrentOrder = null;
         }
-
-        //public ord.Order DeepCopy()
-        //{
-        //    ord.Order orderCopy = (ord.Order)this.MemberwiseClone();
-        //    orderCopy.Id = CurrentOrder.Id;
-        //    orderCopy.OrderNumber = CurrentOrder.OrderNumber;
-        //    orderCopy.Username = CurrentOrder.Username;
-        //    orderCopy.Total = CurrentOrder.Total;
-        //    orderCopy.PurchaseTime = CurrentOrder.PurchaseTime;
-        //    orderCopy.Pizzas = CurrentOrder.Pizzas;
-        //    orderCopy.LocationAddress = CurrentOrder.LocationAddress;
-
-        //    return orderCopy;
-        //}
         #endregion
     }
 }

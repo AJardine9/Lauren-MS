@@ -9,18 +9,18 @@ namespace PizzaStore.Domain.Models.Order
     public class Order
     {
         #region Field
-        public int Id { get; set; }
+        public int OrderId { get; set; }
         public int OrderNumber { get; set; } // fix in a minute
         public string Username { get; set; }
         public double Total { get; set; }
         public DateTime PurchaseTime { get; set; }
         public List<pi.Pizza> Pizzas { get; set; }
-        public string LocationAddress { get; set; }
+        public Address LocationAddress { get; set; }
         public pi.Pizza CurrPizza { get; set; }
 
         #endregion
         #region Constructor
-        public Order(string username, int lastordernumber, string locationAddress)
+        public Order(string username, int lastordernumber, Address locationAddress)
         {
             Pizzas = new List<pi.Pizza>();
             Username = username;
@@ -32,6 +32,7 @@ namespace PizzaStore.Domain.Models.Order
         }
         #endregion
         #region Methods
+        /*
         public void PriceOfPizzas(List<pi.Pizza> pizzas)
         {
             foreach (pi.Pizza pizza in pizzas)
@@ -39,7 +40,7 @@ namespace PizzaStore.Domain.Models.Order
                 Total += pizza.GetPriceOfPizza(pizza);
             }
         }
-
+        */
         public string AddressOfMostRecentOrder(List<pi.Pizza> pizzas)
         {
             string location = "";
@@ -61,16 +62,15 @@ namespace PizzaStore.Domain.Models.Order
             Total -= value;
         }
 
-        public void CreatePizza()
+        /*
+        public void CreatePizza(pi.Crust crust, pi.Size)
         {
-            // default pizza is cheese with tomato sauce
-            CurrPizza = new pi.Pizza(pi.EPizzaOptions.crustRegular, pi.EPizzaOptions.sizeMedium);
-            CurrPizza.Toppings.Add(pi.EPizzaOptions.cheeseCheddar);
-            CurrPizza.Toppings.Add(pi.EPizzaOptions.sauceTomato);
-
+            CurrPizza = new pi.Pizza(pi.Crust, pi.Size.sizeMedium);
+            CurrPizza.Toppings.Add(pi.Toppings.cheeseCheddar);
+            CurrPizza.Toppings.Add(pi.Toppings.sauceTomato);
         }
-
-        public bool AddToppingToPizza(pi.EPizzaOptions option)
+        */
+        public bool AddToppingToPizza(pi.Toppings option)
         {
             if (CurrPizza.Toppings.Count < 5)
             {
@@ -83,17 +83,9 @@ namespace PizzaStore.Domain.Models.Order
             }
         }
 
-        public bool RemoveToppingFromPizza(pi.EPizzaOptions option)
+        public bool RemoveToppingFromPizza(pi.Toppings option)
         {
-            if (CurrPizza.Toppings.Contains(option)
-                && option != pi.EPizzaOptions.crustCheese
-                && option != pi.EPizzaOptions.crustChicago
-                && option != pi.EPizzaOptions.crustRegular
-                && option != pi.EPizzaOptions.crustThin
-                && option != pi.EPizzaOptions.sizeExtraLarge
-                && option != pi.EPizzaOptions.sizeLarge
-                && option != pi.EPizzaOptions.sizeMedium
-                && option != pi.EPizzaOptions.sizeSmall)
+            if (CurrPizza.Toppings.Contains(option))
             {
                 CurrPizza.Toppings.Remove(option);
                 return true;
@@ -104,36 +96,16 @@ namespace PizzaStore.Domain.Models.Order
             }
         }
 
-        public bool AdjustCrustOfPizza(pi.EPizzaOptions option)
+        public bool AdjustCrustOfPizza(pi.Crust option)
         {
-            if (option == pi.EPizzaOptions.crustCheese
-                || option == pi.EPizzaOptions.crustChicago
-                || option == pi.EPizzaOptions.crustRegular
-                || option == pi.EPizzaOptions.crustThin)
-            {
-                CurrPizza.Crust = option;
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            CurrPizza.Crust = option;
+            return true;
         }
 
-        public bool AdjustSizeOfPizza(pi.EPizzaOptions option)
+        public bool AdjustSizeOfPizza(pi.Size option)
         {
-            if (option == pi.EPizzaOptions.sizeExtraLarge
-                || option == pi.EPizzaOptions.sizeLarge
-                || option == pi.EPizzaOptions.sizeMedium
-                || option == pi.EPizzaOptions.sizeSmall)
-            {
-                CurrPizza.Size = option;
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            CurrPizza.Size = option;
+            return true;
         }
 
         public void AddPizza()

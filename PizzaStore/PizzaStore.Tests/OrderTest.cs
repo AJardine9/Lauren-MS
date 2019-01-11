@@ -6,21 +6,34 @@ using ord = PizzaStore.Domain.Models.Order;
 using lo = PizzaStore.Domain.Models.Location;
 using us = PizzaStore.Domain.Models.User;
 using pi = PizzaStore.Domain.Models.Pizza;
+using PizzaStore.Domain.Models;
 
 namespace PizzaStore.Tests
 {
     public class OrderTest
     {
         public ord.Order sut { get; private set; }
-        public us.User user { get; private set; }
-        public lo.Location location { get; set; }
-        //List<pi.EPizzaOptions> Toppings = new List<pi.EPizzaOptions>();
+        private readonly us.User user;
+        private readonly Address address;
+        private readonly Address userAddress;
+        private readonly lo.Location location;
+        public pi.Crust crust { get; set; }
+        public pi.Size size { get; set; }
+        public pi.Toppings topping { get; set; }
+        List<pi.Toppings> Toppings = new List<pi.Toppings>();
 
         public OrderTest()
         {
-            location = new lo.Location("test location");
-            user = new us.User("admin", "password");
+            address = new Address("1123 Fletcher St", "Tampa", "Florida");
+            userAddress = new Address("51 Viking Oak", "Tampa", "Florida");
+
+            location = new lo.Location(address);
+            user = new us.User("admin", "password", userAddress);
             sut = new ord.Order(user.Username, location.OrderNumber, location.Address);
+
+            crust = new pi.Crust();
+            size = new pi.Size();
+            topping = new pi.Toppings();
         }
 
         // TODO: Pull associated User object's username
@@ -64,16 +77,16 @@ namespace PizzaStore.Tests
         public void Test_ListOfPizza()
         {
             sut.CreatePizza();
-            sut.AddToppingToPizza(pi.EPizzaOptions.veggiePineapple);
+            sut.AddToppingToPizza(topping);
             sut.AddPizza();
             sut.CreatePizza();
-            sut.AddToppingToPizza(pi.EPizzaOptions.meatPepperoni);
+            sut.AddToppingToPizza(topping);
             sut.AddPizza();
 
             Assert.True(sut.Pizzas.Count == 2);
             Assert.NotEmpty(sut.Pizzas);
-            Assert.Contains(pi.EPizzaOptions.veggiePineapple, sut.Pizzas[0].Toppings);
-            Assert.Contains(pi.EPizzaOptions.meatPepperoni, sut.Pizzas[1].Toppings);
+            Assert.Contains(topping, sut.Pizzas[0].Toppings);
+            Assert.Contains(topping, sut.Pizzas[1].Toppings);
         }
 
         // TODO: Test that Pizza can be created
@@ -84,8 +97,8 @@ namespace PizzaStore.Tests
 
             Assert.NotNull(sut.CurrPizza);
             Assert.IsType<pi.Pizza>(sut.CurrPizza);
-            Assert.True(sut.CurrPizza.Crust == pi.EPizzaOptions.crustRegular);
-            Assert.True(sut.CurrPizza.Size == pi.EPizzaOptions.sizeMedium);
+            Assert.True(sut.CurrPizza.Crust == crust);
+            Assert.True(sut.CurrPizza.Size == size);
             Assert.True(sut.CurrPizza.Toppings.Count == 2);
         }
 
@@ -94,10 +107,10 @@ namespace PizzaStore.Tests
         public void Test_AddToppingToPizza()
         {
             sut.CreatePizza();
-            bool actual = sut.AddToppingToPizza(pi.EPizzaOptions.veggieBlackOlive);
+            bool actual = sut.AddToppingToPizza(topping);
 
             Assert.True(actual);
-            Assert.Contains(pi.EPizzaOptions.veggieBlackOlive, sut.CurrPizza.Toppings);
+            Assert.Contains(topping, sut.CurrPizza.Toppings);
         }
 
         // TODO: Remove Topping from pizza
@@ -105,10 +118,10 @@ namespace PizzaStore.Tests
         public void Test_RemoveToppingFromPizza()
         {
             sut.CreatePizza();
-            sut.RemoveToppingFromPizza(pi.EPizzaOptions.cheeseCheddar);
+            sut.RemoveToppingFromPizza(topping);
 
             Assert.True(sut.CurrPizza.Toppings.Count == 1);
-            Assert.DoesNotContain(pi.EPizzaOptions.cheeseCheddar, sut.CurrPizza.Toppings);
+            Assert.DoesNotContain(topping, sut.CurrPizza.Toppings);
         }
 
         // TODO: Adjust Crust Size
@@ -116,10 +129,10 @@ namespace PizzaStore.Tests
         public void Test_AdjustCrustOfPizza()
         {
             sut.CreatePizza();
-            var actual = sut.AdjustCrustOfPizza(pi.EPizzaOptions.crustThin);
+            var actual = sut.AdjustCrustOfPizza(crust);
 
             Assert.True(actual);
-            Assert.True(sut.CurrPizza.Crust == pi.EPizzaOptions.crustThin);
+            Assert.True(sut.CurrPizza.Crust == crust);
         }
 
         // TODO: Change Crust Type
@@ -127,10 +140,10 @@ namespace PizzaStore.Tests
         public void Test_AdjustSizeOfPizza()
         {
             sut.CreatePizza();
-            var actual = sut.AdjustSizeOfPizza(pi.EPizzaOptions.sizeLarge);
+            var actual = sut.AdjustSizeOfPizza(size);
 
             Assert.True(actual);
-            Assert.True(sut.CurrPizza.Size == pi.EPizzaOptions.sizeLarge);
+            Assert.True(sut.CurrPizza.Size == size);
         }
 
         // TODO: Test that a Pizza can be added to Pizzas

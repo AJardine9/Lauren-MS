@@ -8,14 +8,20 @@ namespace PizzaStore.Tests
 {
     public class PizzaTest
     {
-        public pi.Pizza sut { get; private set; }
+        private readonly pi.Pizza sut;
+        private readonly pi.Crust crust;
+        private readonly pi.Size size;
+        private readonly pi.Toppings toppings;
 
         public PizzaTest()
         {
-            
-            sut = new pi.Pizza(pi.EPizzaOptions.crustRegular, pi.EPizzaOptions.sizeMedium);
-            sut.AddTopping(pi.EPizzaOptions.veggieGreenOlive);
-            sut.AddTopping(pi.EPizzaOptions.meatBacon);
+            crust = new pi.Crust();
+            size = new pi.Size();
+            toppings = new pi.Toppings();
+
+            sut = new pi.Pizza(crust, size);
+            sut.AddTopping(toppings);
+            sut.AddTopping(toppings);
         }
 
         // TODO: Test Pizza
@@ -30,7 +36,7 @@ namespace PizzaStore.Tests
         [Fact]
         public void Test_PizzaCrust()
         {
-            var expected = pi.EPizzaOptions.crustRegular;
+            var expected = crust;
             var actual = sut.Crust;
 
             Assert.Equal(expected, sut.Crust);
@@ -40,7 +46,7 @@ namespace PizzaStore.Tests
         [Fact]
         public void Test_PizzaSize()
         {
-            var expected = pi.EPizzaOptions.sizeMedium;
+            var expected = size;
             var actual = sut.Size;
 
             Assert.Equal(expected, actual);

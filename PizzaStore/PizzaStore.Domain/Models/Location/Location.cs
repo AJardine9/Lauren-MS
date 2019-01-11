@@ -12,21 +12,20 @@ namespace PizzaStore.Domain.Models.Location
     public class Location
     {
         #region Field
-        public int Id { get; set; }
-        public string Address { get; set; }
+        public int LocationId { get; set; }
+        public Address Address { get; set; }
         public List<us.User> Users { get; set; }
-        public List<pi.EPizzaOptions> Inventory { get; set; }
+        //public List<pi.Crust> Inventory { get; set; }
         public List<ord.Order> Orders { get; set; }
         public int OrderNumber { get; set; }
         #endregion
         #region Constructor
-        public Location(string address)
+        public Location(Address address)
         {
-            lo.Inventory inven = new lo.Inventory();
             Address = address;
             Users = new List<us.User>();
             Orders = new List<ord.Order>();
-            Inventory = inven.Ingredients;
+            //Inventory = inven.Ingredients;
             OrderNumber = 0;
         }
         #endregion

@@ -9,52 +9,53 @@ namespace PizzaStore.Domain.Models
     public class Account
     {
         #region Field
-        private static List<us.User> Accounts { get;  set; }
+        private static List<us.User> Accounts { get; set; }
         public static List<lo.Location> Locations { get; private set; }
+        public int AccountId { get; set; }
         #endregion
         #region Constructor
         public Account()
         {
-            
+
         }
         #endregion
-        #region Methods
-        public void CreateAccount()
-        {
+        //#region Methods
+        //public void CreateAccount()
+        //{
 
-        }
+        //}
 
-        public void RegisterAccount()
-        {
+        //public void RegisterAccount()
+        //{
 
-        }
+        //}
 
-        public void 
+        //public void 
 
-        public us.User GetAccount()
-        {
-            return user;
-        }
+        ////public us.User GetAccount()
+        ////{
+        ////    return user;
+        ////}
 
-        public void OrderMadeAtLocation()
-        {
+        ////public void OrderMadeAtLocation()
+        ////{
 
-        }
+        ////}
 
-        public void OpenNewLocation()
-        {
+        //public void OpenNewLocation()
+        //{
 
-        }
+        //}
 
-        public void CloseLocation()
-        {
+        //public void CloseLocation()
+        //{
 
-        }
+        //}
 
-        public lo.Location GetLocation()
-        {
-            return location;
-        }
-        #endregion
+        //public lo.Location GetLocation()
+        //{
+        //    return location;
+        //}
+        //#endregion
     }
 }

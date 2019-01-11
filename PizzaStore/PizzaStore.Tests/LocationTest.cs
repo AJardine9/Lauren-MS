@@ -5,19 +5,24 @@ using Xunit;
 using lo = PizzaStore.Domain.Models.Location;
 using us = PizzaStore.Domain.Models.User;
 using ord = PizzaStore.Domain.Models.Order;
+using PizzaStore.Domain.Models;
 
 namespace PizzaStore.Tests
 {
     public class LocationTest
     {
-        public lo.Location sut { get; private set; }
-        public us.User user { get; private set; }
+        private readonly lo.Location sut;
+        private readonly us.User user;
+        private readonly Address address;
+        private readonly Address userAddress;
         public ord.Order order { get; private set; }
 
         public LocationTest()
         {
-            sut = new lo.Location("test address");
-            user = new us.User("admin", "password");
+            address = new Address("1123 Fletcher St", "Tampa", "Florida");
+            sut = new lo.Location(address);
+            userAddress = new Address("51 Viking Oak", "Tampa", "Florida");
+            user = new us.User("admin", "password", userAddress);
         }
         // TODO: Test that list of orders exists
         // no test for adding order to list necessary, as it's in User

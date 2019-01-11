@@ -7,22 +7,22 @@ namespace PizzaStore.Domain.Models.Pizza
     public class Pizza
     {
         #region Field
-        public int Id { get; set; }
-        public EPizzaOptions Crust { get; set; }
-        public EPizzaOptions Size { get; set; }
-        public List<EPizzaOptions> Toppings { get; set; }
+        public int PizzaId { get; set; }
+        public Crust Crust { get; set; }
+        public Size Size { get; set; }
+        public List<Toppings> Toppings { get; set; }
         #endregion
         #region Constructor
-        public Pizza(EPizzaOptions crust, EPizzaOptions size)
+        public Pizza(Crust crust, Size size)
         {
             Crust = crust;
             Size = size;
-            Toppings = new List<EPizzaOptions>();
+            Toppings = new List<Toppings>();
         }
         #endregion
         #region Methods
         // Add a topping to the current list
-        public bool AddTopping(EPizzaOptions topping)
+        public bool AddTopping(Toppings topping)
         {
             if (Toppings.Count < 5)
             {
@@ -36,23 +36,24 @@ namespace PizzaStore.Domain.Models.Pizza
         }
 
         // Allow for user changing their mind on a topping
-        public void RemoveTopping(EPizzaOptions topping)
+        public void RemoveTopping(Toppings topping)
         {
             Toppings.Remove(topping);
         }
 
         // Allow for radio options
-        public void ReplaceTopping(EPizzaOptions newTopping, EPizzaOptions oldTopping)
+        public void ReplaceTopping(Toppings newTopping, Toppings oldTopping)
         {
             Toppings.Remove(oldTopping);
             Toppings.Add(newTopping);
         }
 
+        /*
         public double GetPriceOfPizza(Pizza pizza)
         {
-            var options = new lo.Inventory();
+            //var options = new lo.Inventory();
             double price = 0;
-            foreach (EPizzaOptions topping in pizza.Toppings)
+            foreach (Toppings topping in pizza.Toppings)
             {
                 // every additional topping is $1.50
                 price += options.GetPrice(topping);
@@ -60,6 +61,7 @@ namespace PizzaStore.Domain.Models.Pizza
 
             return price;
         }
+        */
         #endregion
     }
 }
