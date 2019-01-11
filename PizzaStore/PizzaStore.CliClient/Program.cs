@@ -11,13 +11,5 @@ namespace PizzaStore.CliClient
             var menus = new Menus();
             menus.MainMenu();
         }
-
-        static void DisplayUsers()
-        {
-            foreach (var user in UserViewModel.GetUsers())
-            {
-                Console.WriteLine(user.UserId);
-            }
-        }
     }
 }

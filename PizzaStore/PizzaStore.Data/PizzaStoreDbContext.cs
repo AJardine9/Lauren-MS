@@ -86,6 +86,8 @@ namespace PizzaStore.Data
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(50);
+
+                entity.Property(e => e.Price).HasColumnType("money");
             });
 
             modelBuilder.Entity<Inventory>(entity =>
@@ -98,11 +100,23 @@ namespace PizzaStore.Data
 
                 entity.Property(e => e.DateModified).HasComputedColumnSql("(sysutcdatetime())");
 
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(50);
+                entity.HasOne(d => d.Crust)
+                    .WithMany(p => p.Inventory)
+                    .HasForeignKey(d => d.CrustId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Inventory_CrustId");
 
-                entity.Property(e => e.Price).HasColumnType("money");
+                entity.HasOne(d => d.Size)
+                    .WithMany(p => p.Inventory)
+                    .HasForeignKey(d => d.SizeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Inventory_SizeId");
+
+                entity.HasOne(d => d.Topping)
+                    .WithMany(p => p.Inventory)
+                    .HasForeignKey(d => d.ToppingId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Inventory_ToppingId");
             });
 
             modelBuilder.Entity<Location>(entity =>
@@ -114,6 +128,24 @@ namespace PizzaStore.Data
                     .HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.DateModified).HasComputedColumnSql("(sysutcdatetime())");
+
+                entity.HasOne(d => d.Account)
+                    .WithMany(p => p.Location)
+                    .HasForeignKey(d => d.AccountId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Location_AccountId");
+
+                entity.HasOne(d => d.Address)
+                    .WithMany(p => p.Location)
+                    .HasForeignKey(d => d.AddressId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Location_AddressId");
+
+                entity.HasOne(d => d.Inventory)
+                    .WithMany(p => p.Location)
+                    .HasForeignKey(d => d.InventoryId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Location_InventoryId");
             });
 
             modelBuilder.Entity<Order>(entity =>
@@ -135,6 +167,18 @@ namespace PizzaStore.Data
                 entity.Property(e => e.Username)
                     .IsRequired()
                     .HasMaxLength(100);
+
+                entity.HasOne(d => d.Location)
+                    .WithMany(p => p.Order)
+                    .HasForeignKey(d => d.LocationId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Order_LocationId");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Order)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Order_UserId");
             });
 
             modelBuilder.Entity<Pizza>(entity =>
@@ -146,6 +190,30 @@ namespace PizzaStore.Data
                     .HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.DateModified).HasComputedColumnSql("(sysutcdatetime())");
+
+                entity.HasOne(d => d.Crust)
+                    .WithMany(p => p.Pizza)
+                    .HasForeignKey(d => d.CrustId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Pizza_CrustId");
+
+                entity.HasOne(d => d.Order)
+                    .WithMany(p => p.Pizza)
+                    .HasForeignKey(d => d.OrderId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Pizza_OrderId");
+
+                entity.HasOne(d => d.Size)
+                    .WithMany(p => p.Pizza)
+                    .HasForeignKey(d => d.SizeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Pizza_SizeId");
+
+                entity.HasOne(d => d.Topping)
+                    .WithMany(p => p.Pizza)
+                    .HasForeignKey(d => d.ToppingId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Pizza_ToppingId");
             });
 
             modelBuilder.Entity<Size>(entity =>
@@ -161,6 +229,8 @@ namespace PizzaStore.Data
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(50);
+
+                entity.Property(e => e.Price).HasColumnType("money");
             });
 
             modelBuilder.Entity<Topping>(entity =>
@@ -176,6 +246,8 @@ namespace PizzaStore.Data
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(50);
+
+                entity.Property(e => e.Price).HasColumnType("money");
             });
 
             modelBuilder.Entity<User>(entity =>
@@ -197,6 +269,23 @@ namespace PizzaStore.Data
                 entity.Property(e => e.Username)
                     .IsRequired()
                     .HasMaxLength(100);
+
+                entity.HasOne(d => d.Account)
+                    .WithMany(p => p.User)
+                    .HasForeignKey(d => d.AccountId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_User_AccountId");
+
+                entity.HasOne(d => d.Address)
+                    .WithMany(p => p.User)
+                    .HasForeignKey(d => d.AddressId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_User_AddressId");
+
+                entity.HasOne(d => d.Location)
+                    .WithMany(p => p.User)
+                    .HasForeignKey(d => d.LocationId)
+                    .HasConstraintName("FK_User_LocationId");
             });
         }
     }

@@ -10,7 +10,6 @@ namespace PizzaStore.Data.Helpers
 {
     public static class LocationHelper
     {
-        
         private static PizzaStoreDbContext _db = new PizzaStoreDbContext();
         
         public static List<lo.Location> GetLocations()
@@ -26,6 +25,39 @@ namespace PizzaStore.Data.Helpers
             }
 
             return du;
+        }
+
+        public static bool SetLocation(lo.Location location, pdm.Address address)
+        {
+            var dataAddress = new Address()
+            {
+                Street = address.Street,
+                City = address.City,
+                State = address.State
+            };
+            
+            _db.Address.Add(dataAddress);
+
+            var dataInventory = new Inventory()
+            {
+                CrustId = 1,
+                SizeId = 1,
+                ToppingId = 1
+            };
+
+            _db.Inventory.Add(dataInventory);
+
+            var dataLocation = new Location()
+            {
+                AccountId = 1,
+                InventoryId = dataInventory.InventoryId,
+                AddressId = dataAddress.AddressId,
+                OrderNumber = location.OrderNumber
+            };
+
+            _db.Location.Add(dataLocation);
+
+            return _db.SaveChanges() == 3;
         }
         /*
         public static double GetLocationSales(lo.Location location)

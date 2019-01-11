@@ -4,6 +4,7 @@ using System.Text;
 using ord = PizzaStore.Domain.Models.Order;
 using lo = PizzaStore.Domain.Models.Location;
 using us = PizzaStore.Domain.Models.User;
+using pdm = PizzaStore.Domain.Models;
 using PizzaStore.CliClient.ViewModels;
 
 namespace PizzaStore.CliClient.Models
@@ -100,6 +101,7 @@ namespace PizzaStore.CliClient.Models
             Console.WriteLine("1. Order a Pizza");
             Console.WriteLine("2. View Account and Order History");
             Console.WriteLine("3. View Available Locations");
+            Console.WriteLine("4. Logout");
             var input = Console.ReadLine();
             int choice;
             bool validOption = Int32.TryParse(input, out choice);
@@ -115,7 +117,10 @@ namespace PizzaStore.CliClient.Models
                         UserAccountMenu(user);
                         break;
                     case 3:
-                        LocationMenu();
+                        LocationMenu(user);
+                        break;
+                    case 4:
+                        MainMenu();
                         break;
                     default:
                         Console.WriteLine("Please enter valid option.");
@@ -159,13 +164,61 @@ namespace PizzaStore.CliClient.Models
             LoggedMenu(user);
             }
 
-        public void LocationMenu()
+        public void LocationMenu(us.User user)
         {
             Console.WriteLine("The following locations are available.");
 
             foreach (var location in LocationViewModel.GetLocations())
             {
                 Console.WriteLine("Street: " + location.Address.Street + ", City: " + location.Address.City + ", State: " + location.Address.State);
+            }
+
+            if (user.Username == "Admin")
+            {
+                CreateLocation(user);
+            }
+        }
+
+        public void CreateLocation(us.User user)
+        {
+            Console.WriteLine("Welcome Admin!");
+            Console.WriteLine("1. Create Location");
+            Console.WriteLine("2. Return to previous");
+
+            var input = Console.ReadLine();
+            int choice;
+            bool validOption = Int32.TryParse(input, out choice);
+
+            if (validOption)
+            {
+                switch (choice)
+                {
+                    case 1:
+                        Console.WriteLine("Enter Street");
+                        var street = Console.ReadLine();
+                        Console.WriteLine("Enter City");
+                        var city = Console.ReadLine();
+                        Console.WriteLine("Enter State");
+                        var state = Console.ReadLine();
+
+                        var address = new pdm.Address(street, city, state);
+                        var location = new lo.Location(address);
+
+                        LocationViewModel.SetLocation(location, address);
+                        break;
+                    case 2:
+                        LoggedMenu(user);
+                        break;
+                    default:
+                        Console.WriteLine("Please enter valid option.");
+                        CreateLocation(user);
+                        break;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Please enter valid option.");
+                CreateLocation(user);
             }
         }
     }

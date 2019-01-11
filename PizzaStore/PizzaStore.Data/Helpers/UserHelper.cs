@@ -28,7 +28,7 @@ namespace PizzaStore.Data.Helpers
             return OrderHelper.GetOrders(dataUser.Order);
         }
         */
-
+   
         public static us.User GetUser(us.User user)
         {
             var dataUser = _db.User.Where(u => u.Username == user.Username).FirstOrDefault();
