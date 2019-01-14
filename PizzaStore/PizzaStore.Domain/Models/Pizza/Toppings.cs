@@ -8,10 +8,13 @@ namespace PizzaStore.Domain.Models.Pizza
     {
         public int ToppingId { get; set; }
         public string Name { get; set; }
+        public double Price { get; set; }
 
-        public Toppings()
+        public Toppings(int toppingId, string name, double price)
         {
-            Name = "Default Topping";
+            ToppingId = toppingId;
+            Name = name;
+            Price = price;
         }
     }
 }

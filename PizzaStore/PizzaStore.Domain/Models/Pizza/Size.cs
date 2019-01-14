@@ -8,10 +8,13 @@ namespace PizzaStore.Domain.Models.Pizza
     {
         public int SizeId { get; set; }
         public string Name { get; set; }
+        public double Price { get; set; }
 
-        public Size ()
+        public Size (int sizeId, string name, double price)
         {
-            Name = "Default Size";
+            SizeId = sizeId;
+            Name = name;
+            Price = price;
         }
     }
 }

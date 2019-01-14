@@ -4,6 +4,7 @@ using System.Text;
 using ord = PizzaStore.Domain.Models.Order;
 using lo = PizzaStore.Domain.Models.Location;
 using us = PizzaStore.Domain.Models.User;
+using pi = PizzaStore.Domain.Models.Pizza;
 using pdm = PizzaStore.Domain.Models;
 using PizzaStore.CliClient.ViewModels;
 
@@ -111,7 +112,7 @@ namespace PizzaStore.CliClient.Models
                 switch (choice)
                 {
                     case 1:
-                        //OrderPizzaMenu();
+                        OrderPizzaMenu(user);
                         break;
                     case 2:
                         UserAccountMenu(user);
@@ -135,18 +136,72 @@ namespace PizzaStore.CliClient.Models
             }
         }
         
-        public void OrderPizzaMenu(string user)
+        public void OrderPizzaMenu(us.User user)
         {
-            
             Console.WriteLine("Which Location would you like to order from?");
-            //var location = GetLocation();
 
-            //var order = new ord.Order(user, );
+            int option = 1;
+            List<lo.Location> locations = new List<lo.Location>();
+
+            foreach (var location in LocationViewModel.GetLocations())
+            {
+                locations.Add(location);
+                Console.WriteLine(option + ". " + "Street: " + location.Address.Street + ", City: " + location.Address.City + ", State: " + location.Address.State);
+
+                option++;
+            }
+
+            lo.Location chosenLocation = locations[0];
+            var input = Console.ReadLine();
+            int choice;
+            bool validOption = Int32.TryParse(input, out choice);
+            try
+            {
+                choice -= 1;
+                chosenLocation = locations[choice];
+            }
+            catch
+            {
+                Console.WriteLine("Your chosen location does not exist");
+                OrderPizzaMenu(user);
+            }
+
+            user.CreateOrder(chosenLocation.OrderNumber, chosenLocation.Address);
+
+            user.CurrentOrder.CreatePizza();
+            
             Console.WriteLine("What type of crust would you like for your pizza?");
 
+            option = 1;
+            List<pi.Crust> crusts = new List<pi.Crust>();
 
-        //public List<pi.Pizza> Pizzas { get; set; }
-        //public pi.Pizza CurrPizza { get; set; }
+            foreach (var crust in CrustViewModel.GetCrusts())
+            {
+                locations.Add(location);
+                Console.WriteLine(option + ". " + "Street: " + location.Address.Street + ", City: " + location.Address.City + ", State: " + location.Address.State);
+
+                option++;
+            }
+
+            lo.Location chosenLocation = locations[0];
+            var input = Console.ReadLine();
+            int choice;
+            bool validOption = Int32.TryParse(input, out choice);
+            try
+            {
+                choice -= 1;
+                chosenLocation = locations[choice];
+            }
+            catch
+            {
+                Console.WriteLine("Your chosen location does not exist");
+                OrderPizzaMenu(user);
+            }
+
+
+
+            // user.CurrentOrder.CreatePizza();
+
 
         }
 
@@ -167,7 +222,7 @@ namespace PizzaStore.CliClient.Models
         public void LocationMenu(us.User user)
         {
             Console.WriteLine("The following locations are available.");
-
+            
             foreach (var location in LocationViewModel.GetLocations())
             {
                 Console.WriteLine("Street: " + location.Address.Street + ", City: " + location.Address.City + ", State: " + location.Address.State);

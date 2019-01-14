@@ -38,27 +38,101 @@ namespace PizzaStore.Data.Helpers
             
             _db.Address.Add(dataAddress);
 
-            var dataInventory = new Inventory()
-            {
-                CrustId = 1,
-                SizeId = 1,
-                ToppingId = 1
-            };
-
-            _db.Inventory.Add(dataInventory);
-
             var dataLocation = new Location()
             {
-                AccountId = 1,
-                InventoryId = dataInventory.InventoryId,
                 AddressId = dataAddress.AddressId,
                 OrderNumber = location.OrderNumber
             };
 
             _db.Location.Add(dataLocation);
 
+            var newLocation = _db.Location.Where(a => a.AddressId == dataLocation.AddressId).FirstOrDefault();
+
+            InitLocationInventory(newLocation.LocationId);
+
             return _db.SaveChanges() == 3;
         }
+
+        public static void InitLocationInventory(int locationId)
+        {
+            var crusts = GetCrusts();
+            var sizes = GetSizes();
+            var toppings = GetToppings();
+            var defaultStock = 10;
+        
+            foreach(var crust in crusts)
+            {
+                var dataCrust = new CrustInventory()
+                {
+                    CrustId = crust.CrustId,
+                    LocationId = locationId,
+                    Stock = defaultStock
+                };
+
+                _db.CrustInventory.Add(dataCrust);
+            }
+
+            foreach(var size in sizes)
+            {
+                var dataSize = new SizeInventory()
+                {
+                    SizeId = size.SizeId,
+                    LocationId = locationId,
+                    Stock = defaultStock
+                };
+
+                _db.SizeInventory.Add(dataSize);
+            }
+
+            foreach(var topping in toppings)
+            {
+                var dataTopping = new ToppingInventory()
+                {
+                    ToppingId = topping.ToppingId,
+                    LocationId = locationId,
+                    Stock = defaultStock
+                };
+
+                _db.ToppingInventory.Add(dataTopping);
+            }
+        }
+
+        public static List<pi.Crust> GetCrusts()
+        {
+            var du = new List<pi.Crust>();
+
+            foreach (var crust in _db.Crust.ToList())
+            {
+                du.Add(new pi.Crust(crust.CrustId, crust.Name, (double)crust.Price));
+            }
+
+            return du;
+        }
+
+        public static List<pi.Size> GetSizes()
+        {
+            var du = new List<pi.Size>();
+
+            foreach (var size in _db.Size.ToList())
+            {
+                du.Add(new pi.Size(size.SizeId, size.Name, (double)size.Price));
+            }
+
+            return du;
+        }
+
+        public static List<pi.Toppings> GetToppings()
+        {
+            var du = new List<pi.Toppings>();
+
+            foreach (var topping in _db.Topping.ToList())
+            {
+                du.Add(new pi.Toppings(topping.ToppingId, topping.Name, (double)topping.Price));
+            }
+
+            return du;
+        }
+
         /*
         public static double GetLocationSales(lo.Location location)
         {

@@ -29,14 +29,24 @@ namespace PizzaStore.Domain.Models.Location
             OrderNumber = 0;
         }
         #endregion
-        #region Methods
-        public void OrderMadeAtLocation(ord.Order order)
-        {
-            if(Users.Find(user => user.Username == order.Username) == null)
-            {
+        //#region Methods
+        //public void OrderMadeAtLocation(ord.Order order)
+        //{
+        //    if(Users.Find(user => user.Username == order.Username) == null)
+        //    {
 
-            }
-        }
-        #endregion
+        //    }
+        //}
+
+        //public void DisplayAvailableCrusts()
+        //{
+
+        //}
+
+        //public void DisplayAvailableSizes()
+        //{
+
+        //}
+        //#endregion
     }
 }

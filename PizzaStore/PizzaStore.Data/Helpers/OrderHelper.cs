@@ -12,7 +12,6 @@ namespace PizzaStore.Data.Helpers
 {
     public static class OrderHelper
     {
-        /*
         private static PizzaStoreDbContext _db = new PizzaStoreDbContext();
 
         public static List<ord.Order> GetOrderByLocation(lo.Location location)
@@ -39,19 +38,29 @@ namespace PizzaStore.Data.Helpers
             return GetOrders(dataUser.Order);
         }
 
-        internal static List<ord.Order> GetOrders(ICollection<Order> orderCollection)
+        public static List<ord.Order> GetOrders(ICollection<Order> orderCollection)
         {
             var orders = new List<ord.Order>();
 
             foreach (var item in orderCollection.ToList())
             {
-                orders.Add(new ord.Order()
+                orders.Add(new ord.Order(item.Username, (int)item.OrderNumber, item.LocationAddress)
                 {
                     OrderId = item.OrderId
                 });
             }
 
             return orders;
-        }*/
+        }
+
+        public static void SetOrder()
+        {
+
+        }
+
+        //public static ord.Order GetOrder()
+        //{
+        //    var order = new
+        //}
     }
 }

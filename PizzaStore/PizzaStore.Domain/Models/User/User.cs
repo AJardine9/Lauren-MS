@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using ord = PizzaStore.Domain.Models.Order;
+using lo = PizzaStore.Domain.Models.Location;
 
 namespace PizzaStore.Domain.Models.User
 {
@@ -28,20 +29,20 @@ namespace PizzaStore.Domain.Models.User
         }
         #endregion
         #region Methods
-        public void AddOrder()
-        {
-            if (CurrentOrder != null)
-            {
-                Orders.Add(CurrentOrder);
-                LastLocationOrdered = CurrentOrder.LocationAddress;
-                LastTimeOrdered = CurrentOrder.PurchaseTime;
-                CurrentOrder = null;
-            }
-        }
+        //public void AddOrder()
+        //{
+        //    if (CurrentOrder != null)
+        //    {
+        //        Orders.Add(CurrentOrder);
+        //        LastLocationOrdered = CurrentOrder.LocationAddress;
+        //        LastTimeOrdered = CurrentOrder.PurchaseTime;
+        //        CurrentOrder = null;
+        //    }
+        //}
 
         public void CreateOrder(int orderNumber, Address address)
         {
-            CurrentOrder = new ord.Order(Username, orderNumber, address);
+            CurrentOrder = new ord.Order(Username, orderNumber, address.ToString());
         }
 
         public void CancelOrder()

@@ -4,17 +4,6 @@ go
 insert into [PizzaStore].[Crust]([Name], [Price], [Stock])
 	values ('Thin', 1.0, 10), ('Regular', 1.50, 10), ('Cheese', 2.0, 10), ('Chicago', 2.0, 10);
 
-	--SET Identity_Insert PizzaStore.[Crust] ON
-	--insert into PizzaStore.[Crust](CrustId,InventoryId,PizzaId,Name,Stock,Price,Active)
-	--values (1,
-	--(select InventoryId from PizzaStore.[Inventory] where InventoryId = 1),
-	--(select PizzaId from PizzaStore.[Pizza] where PizzaId = 1),
-	--'thin',
-	--10,
-	--1,
-	--'true'); 
-	--SET Identity_Insert PizzaStore.[Crust] Off
-
 insert into [PizzaStore].[Size]([Name], [Price], [Stock])
 	values('Small', 5.0, 10), ('Medium', 6.0, 10), ('Large', 7.0, 10), ('ExtraLarge', 8.0, 10);
 
@@ -29,17 +18,17 @@ insert into [PizzaStore].[Topping]([Name], [Price], [Stock])
 
 	SET Identity_Insert [PizzaStore].[Address] ON
 	insert into [PizzaStore].[Address]([AddressId], [Street], [State], [City])
-		values (1, 'Fletcher', 'Florida', 'Tampa')
+		values (2, '31 Viking Ave', 'San Antonio', 'Texas')
 	SET Identity_Insert [PizzaStore].[Address] OFF
 
 	SET Identity_Insert [PizzaStore].[Location] ON
 	insert into [PizzaStore].[Location]([LocationId], [AccountId], [AddressId], [InventoryId], [OrderNumber])
-		values (1, 1, 1, 1, 1)
+		values (2, 1, 2, 2, 1)
 	SET Identity_Insert [PizzaStore].[Location] OFF
 
 	SET Identity_Insert [PizzaStore].[Inventory] ON
 	insert into [PizzaStore].[Inventory]([InventoryId], [CrustId], [ToppingId], [SizeId])
-		values (1, 1, 1, 1)
+		values (2, 1, 1, 1)
 	SET Identity_Insert [PizzaStore].[Inventory] OFF
 
 	SET Identity_Insert [PizzaStore].[User] ON

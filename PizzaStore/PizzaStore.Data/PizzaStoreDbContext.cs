@@ -15,15 +15,17 @@ namespace PizzaStore.Data
         {
         }
 
-        public virtual DbSet<Account> Account { get; set; }
         public virtual DbSet<Address> Address { get; set; }
         public virtual DbSet<Crust> Crust { get; set; }
-        public virtual DbSet<Inventory> Inventory { get; set; }
+        public virtual DbSet<CrustInventory> CrustInventory { get; set; }
         public virtual DbSet<Location> Location { get; set; }
         public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<Pizza> Pizza { get; set; }
+        public virtual DbSet<PizzaTopping> PizzaTopping { get; set; }
         public virtual DbSet<Size> Size { get; set; }
+        public virtual DbSet<SizeInventory> SizeInventory { get; set; }
         public virtual DbSet<Topping> Topping { get; set; }
+        public virtual DbSet<ToppingInventory> ToppingInventory { get; set; }
         public virtual DbSet<User> User { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -38,17 +40,6 @@ namespace PizzaStore.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("ProductVersion", "2.2.1-servicing-10028");
-
-            modelBuilder.Entity<Account>(entity =>
-            {
-                entity.ToTable("Account", "PizzaStore");
-
-                entity.Property(e => e.Active)
-                    .IsRequired()
-                    .HasDefaultValueSql("((1))");
-
-                entity.Property(e => e.DateModified).HasComputedColumnSql("(sysutcdatetime())");
-            });
 
             modelBuilder.Entity<Address>(entity =>
             {
@@ -77,10 +68,6 @@ namespace PizzaStore.Data
             {
                 entity.ToTable("Crust", "PizzaStore");
 
-                entity.Property(e => e.Active)
-                    .IsRequired()
-                    .HasDefaultValueSql("((1))");
-
                 entity.Property(e => e.DateModified).HasComputedColumnSql("(sysutcdatetime())");
 
                 entity.Property(e => e.Name)
@@ -90,33 +77,21 @@ namespace PizzaStore.Data
                 entity.Property(e => e.Price).HasColumnType("money");
             });
 
-            modelBuilder.Entity<Inventory>(entity =>
+            modelBuilder.Entity<CrustInventory>(entity =>
             {
-                entity.ToTable("Inventory", "PizzaStore");
-
-                entity.Property(e => e.Active)
-                    .IsRequired()
-                    .HasDefaultValueSql("((1))");
-
-                entity.Property(e => e.DateModified).HasComputedColumnSql("(sysutcdatetime())");
+                entity.ToTable("CrustInventory", "PizzaStore");
 
                 entity.HasOne(d => d.Crust)
-                    .WithMany(p => p.Inventory)
+                    .WithMany(p => p.CrustInventory)
                     .HasForeignKey(d => d.CrustId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Inventory_CrustId");
+                    .HasConstraintName("FK_CrustInventory_CrustId");
 
-                entity.HasOne(d => d.Size)
-                    .WithMany(p => p.Inventory)
-                    .HasForeignKey(d => d.SizeId)
+                entity.HasOne(d => d.Location)
+                    .WithMany(p => p.CrustInventory)
+                    .HasForeignKey(d => d.LocationId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Inventory_SizeId");
-
-                entity.HasOne(d => d.Topping)
-                    .WithMany(p => p.Inventory)
-                    .HasForeignKey(d => d.ToppingId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Inventory_ToppingId");
+                    .HasConstraintName("FK_CrustInventory_LocationId");
             });
 
             modelBuilder.Entity<Location>(entity =>
@@ -129,23 +104,11 @@ namespace PizzaStore.Data
 
                 entity.Property(e => e.DateModified).HasComputedColumnSql("(sysutcdatetime())");
 
-                entity.HasOne(d => d.Account)
-                    .WithMany(p => p.Location)
-                    .HasForeignKey(d => d.AccountId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Location_AccountId");
-
                 entity.HasOne(d => d.Address)
                     .WithMany(p => p.Location)
                     .HasForeignKey(d => d.AddressId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Location_AddressId");
-
-                entity.HasOne(d => d.Inventory)
-                    .WithMany(p => p.Location)
-                    .HasForeignKey(d => d.InventoryId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Location_InventoryId");
             });
 
             modelBuilder.Entity<Order>(entity =>
@@ -208,21 +171,58 @@ namespace PizzaStore.Data
                     .HasForeignKey(d => d.SizeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Pizza_SizeId");
+            });
+
+            modelBuilder.Entity<PizzaTopping>(entity =>
+            {
+                entity.ToTable("PizzaTopping", "PizzaStore");
+
+                entity.HasOne(d => d.Pizza)
+                    .WithMany(p => p.PizzaTopping)
+                    .HasForeignKey(d => d.PizzaId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_PizzaTopping_PizzaId");
 
                 entity.HasOne(d => d.Topping)
-                    .WithMany(p => p.Pizza)
+                    .WithMany(p => p.PizzaTopping)
                     .HasForeignKey(d => d.ToppingId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Pizza_ToppingId");
+                    .HasConstraintName("FK_PizzaTopping_ToppingId");
             });
 
             modelBuilder.Entity<Size>(entity =>
             {
                 entity.ToTable("Size", "PizzaStore");
 
-                entity.Property(e => e.Active)
+                entity.Property(e => e.DateModified).HasComputedColumnSql("(sysutcdatetime())");
+
+                entity.Property(e => e.Name)
                     .IsRequired()
-                    .HasDefaultValueSql("((1))");
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.Price).HasColumnType("money");
+            });
+
+            modelBuilder.Entity<SizeInventory>(entity =>
+            {
+                entity.ToTable("SizeInventory", "PizzaStore");
+
+                entity.HasOne(d => d.Location)
+                    .WithMany(p => p.SizeInventory)
+                    .HasForeignKey(d => d.LocationId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SizeInventory_LocationId");
+
+                entity.HasOne(d => d.Size)
+                    .WithMany(p => p.SizeInventory)
+                    .HasForeignKey(d => d.SizeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SizeInventory_SizeId");
+            });
+
+            modelBuilder.Entity<Topping>(entity =>
+            {
+                entity.ToTable("Topping", "PizzaStore");
 
                 entity.Property(e => e.DateModified).HasComputedColumnSql("(sysutcdatetime())");
 
@@ -233,21 +233,21 @@ namespace PizzaStore.Data
                 entity.Property(e => e.Price).HasColumnType("money");
             });
 
-            modelBuilder.Entity<Topping>(entity =>
+            modelBuilder.Entity<ToppingInventory>(entity =>
             {
-                entity.ToTable("Topping", "PizzaStore");
+                entity.ToTable("ToppingInventory", "PizzaStore");
 
-                entity.Property(e => e.Active)
-                    .IsRequired()
-                    .HasDefaultValueSql("((1))");
+                entity.HasOne(d => d.Location)
+                    .WithMany(p => p.ToppingInventory)
+                    .HasForeignKey(d => d.LocationId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ToppingInventory_LocationId");
 
-                entity.Property(e => e.DateModified).HasComputedColumnSql("(sysutcdatetime())");
-
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.Price).HasColumnType("money");
+                entity.HasOne(d => d.Topping)
+                    .WithMany(p => p.ToppingInventory)
+                    .HasForeignKey(d => d.ToppingId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ToppingInventory_ToppingId");
             });
 
             modelBuilder.Entity<User>(entity =>
@@ -270,22 +270,11 @@ namespace PizzaStore.Data
                     .IsRequired()
                     .HasMaxLength(100);
 
-                entity.HasOne(d => d.Account)
-                    .WithMany(p => p.User)
-                    .HasForeignKey(d => d.AccountId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_User_AccountId");
-
                 entity.HasOne(d => d.Address)
                     .WithMany(p => p.User)
                     .HasForeignKey(d => d.AddressId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_User_AddressId");
-
-                entity.HasOne(d => d.Location)
-                    .WithMany(p => p.User)
-                    .HasForeignKey(d => d.LocationId)
-                    .HasConstraintName("FK_User_LocationId");
             });
         }
     }

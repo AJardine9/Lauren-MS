@@ -31,3 +31,14 @@ alter table PizzaStore.[Pizza]
 alter table PizzaStore.[Account]
 	add constraint PK_Account_AccountId primary key (AccountId)
 
+alter table PizzaStore.[CrustInventory]
+	add constraint PK_CrustInventory_CrustInventoryId primary key (CrustInventoryId)
+
+alter table PizzaStore.[SizeInventory]
+	add constraint PK_SizeInventory_SizeInventoryId primary key (SizeInventoryId)
+
+alter table PizzaStore.[ToppingInventory]
+	add constraint PK_ToppingInventory_ToppingInventoryId primary key (ToppingInventoryId)
+
+alter table PizzaStore.[PizzaTopping]
+	add constraint PK_PizzaTopping_PizzaToppingId primary key (PizzaToppingId)

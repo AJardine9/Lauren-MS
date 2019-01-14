@@ -7,18 +7,17 @@ namespace PizzaStore.Data
     {
         public Topping()
         {
-            Inventory = new HashSet<Inventory>();
-            Pizza = new HashSet<Pizza>();
+            PizzaTopping = new HashSet<PizzaTopping>();
+            ToppingInventory = new HashSet<ToppingInventory>();
         }
 
         public int ToppingId { get; set; }
         public string Name { get; set; }
-        public int Stock { get; set; }
         public decimal Price { get; set; }
         public DateTime DateModified { get; set; }
-        public bool? Active { get; set; }
+        public bool Active { get; set; }
 
-        public virtual ICollection<Inventory> Inventory { get; set; }
-        public virtual ICollection<Pizza> Pizza { get; set; }
+        public virtual ICollection<PizzaTopping> PizzaTopping { get; set; }
+        public virtual ICollection<ToppingInventory> ToppingInventory { get; set; }
     }
 }

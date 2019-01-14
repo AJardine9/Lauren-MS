@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using us = PizzaStore.Domain.Models.User;
 using pi = PizzaStore.Domain.Models.Pizza;
+using lo = PizzaStore.Domain.Models.Location;
 
 namespace PizzaStore.Domain.Models.Order
 {
@@ -10,132 +11,130 @@ namespace PizzaStore.Domain.Models.Order
     {
         #region Field
         public int OrderId { get; set; }
-        public int OrderNumber { get; set; } // fix in a minute
+        public int OrderNumber { get; set; }
         public string Username { get; set; }
         public double Total { get; set; }
         public DateTime PurchaseTime { get; set; }
         public List<pi.Pizza> Pizzas { get; set; }
-        public Address LocationAddress { get; set; }
+        public string LocationAddress { get; set; }
         public pi.Pizza CurrPizza { get; set; }
 
         #endregion
         #region Constructor
-        public Order(string username, int lastordernumber, Address locationAddress)
+        public Order(string username, int orderNumber, string address)
         {
             Pizzas = new List<pi.Pizza>();
             Username = username;
             Total = 0;
             PurchaseTime = DateTime.Now;
-            OrderNumber = lastordernumber;
-            LocationAddress = locationAddress;
+            OrderNumber = orderNumber;
+            LocationAddress = address;
             CurrPizza = null;
         }
         #endregion
         #region Methods
-        /*
-        public void PriceOfPizzas(List<pi.Pizza> pizzas)
-        {
-            foreach (pi.Pizza pizza in pizzas)
-            {
-                Total += pizza.GetPriceOfPizza(pizza);
-            }
-        }
-        */
-        public string AddressOfMostRecentOrder(List<pi.Pizza> pizzas)
-        {
-            string location = "";
-            foreach (pi.Pizza pizza in pizzas)
-            {
-                
-            }
+        ///*
+        //public void PriceOfPizzas(List<pi.Pizza> pizzas)
+        //{
+        //    foreach (pi.Pizza pizza in pizzas)
+        //    {
+        //        Total += pizza.GetPriceOfPizza(pizza);
+        //    }
+        //}
+        //*/
+        //public string AddressOfMostRecentOrder(List<pi.Pizza> pizzas)
+        //{
+        //    string location = "";
+        //    foreach (pi.Pizza pizza in pizzas)
+        //    {
 
-            return location;
-        }
+        //    }
 
-        public void AddToTotal(double value)
-        {
-            Total += value;
-        }
+        //    return location;
+        //}
 
-        public void SubtractFromTotal(double value)
-        {
-            Total -= value;
-        }
+        //public void AddToTotal(double value)
+        //{
+        //    Total += value;
+        //}
 
-        /*
-        public void CreatePizza(pi.Crust crust, pi.Size)
+        //public void SubtractFromTotal(double value)
+        //{
+        //    Total -= value;
+        //}
+
+
+        public void CreatePizza()
         {
-            CurrPizza = new pi.Pizza(pi.Crust, pi.Size.sizeMedium);
-            CurrPizza.Toppings.Add(pi.Toppings.cheeseCheddar);
-            CurrPizza.Toppings.Add(pi.Toppings.sauceTomato);
-        }
-        */
-        public bool AddToppingToPizza(pi.Toppings option)
-        {
-            if (CurrPizza.Toppings.Count < 5)
-            {
-                CurrPizza.Toppings.Add(option);
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            CurrPizza = new pi.Pizza();
         }
 
-        public bool RemoveToppingFromPizza(pi.Toppings option)
-        {
-            if (CurrPizza.Toppings.Contains(option))
-            {
-                CurrPizza.Toppings.Remove(option);
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+        //public bool AddToppingToPizza(pi.Toppings option)
+        //{
+        //    if (CurrPizza.Toppings.Count < 5)
+        //    {
+        //        CurrPizza.Toppings.Add(option);
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //}
 
-        public bool AdjustCrustOfPizza(pi.Crust option)
-        {
-            CurrPizza.Crust = option;
-            return true;
-        }
+        //public bool RemoveToppingFromPizza(pi.Toppings option)
+        //{
+        //    if (CurrPizza.Toppings.Contains(option))
+        //    {
+        //        CurrPizza.Toppings.Remove(option);
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //}
 
-        public bool AdjustSizeOfPizza(pi.Size option)
-        {
-            CurrPizza.Size = option;
-            return true;
-        }
+        //public bool AdjustCrustOfPizza(pi.Crust option)
+        //{
+        //    CurrPizza.Crust = option;
+        //    return true;
+        //}
 
-        public void AddPizza()
-        {
-            if (CurrPizza != null)
-            {
-                Pizzas.Add(CurrPizza);
-                CurrPizza = null;
-            }
-        }
+        //public bool AdjustSizeOfPizza(pi.Size option)
+        //{
+        //    CurrPizza.Size = option;
+        //    return true;
+        //}
 
-        public void RemovePizzaFromPizzas(pi.Pizza pizza)
-        {
-            if (Pizzas.Contains(pizza))
-            {
-                Pizzas.Remove(pizza);
-            }
-        }
+        //public void AddPizza()
+        //{
+        //    if (CurrPizza != null)
+        //    {
+        //        Pizzas.Add(CurrPizza);
+        //        CurrPizza = null;
+        //    }
+        //}
 
-        public pi.Pizza GetPizzaFromPizzas(pi.Pizza pizza)
-        {
-            if (pizza != null
-                && Pizzas.Count > 0
-                && Pizzas.Contains(pizza))
-            {
-                CurrPizza = pizza;
-            }
+        //public void RemovePizzaFromPizzas(pi.Pizza pizza)
+        //{
+        //    if (Pizzas.Contains(pizza))
+        //    {
+        //        Pizzas.Remove(pizza);
+        //    }
+        //}
 
-            return CurrPizza;
-        }
+        //public pi.Pizza GetPizzaFromPizzas(pi.Pizza pizza)
+        //{
+        //    if (pizza != null
+        //        && Pizzas.Count > 0
+        //        && Pizzas.Contains(pizza))
+        //    {
+        //        CurrPizza = pizza;
+        //    }
+
+        //    return CurrPizza;
+        //}
         #endregion
     }
 }

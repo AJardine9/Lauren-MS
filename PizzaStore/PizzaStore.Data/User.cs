@@ -11,8 +11,6 @@ namespace PizzaStore.Data
         }
 
         public int UserId { get; set; }
-        public int AccountId { get; set; }
-        public int? LocationId { get; set; }
         public int AddressId { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
@@ -21,9 +19,7 @@ namespace PizzaStore.Data
         public DateTime DateModified { get; set; }
         public bool? Active { get; set; }
 
-        public virtual Account Account { get; set; }
         public virtual Address Address { get; set; }
-        public virtual Location Location { get; set; }
         public virtual ICollection<Order> Order { get; set; }
     }
 }

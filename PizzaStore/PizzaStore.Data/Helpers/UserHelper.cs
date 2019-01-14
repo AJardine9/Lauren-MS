@@ -28,7 +28,7 @@ namespace PizzaStore.Data.Helpers
             return OrderHelper.GetOrders(dataUser.Order);
         }
         */
-   
+
         public static us.User GetUser(us.User user)
         {
             var dataUser = _db.User.Where(u => u.Username == user.Username).FirstOrDefault();
@@ -60,11 +60,11 @@ namespace PizzaStore.Data.Helpers
             {
                 Username = user.Username,
                 Password = user.Password,
-                AddressId = 1,
-                AccountId = 1,
+                AddressId = 1
             };
             
             _db.User.Add(dataUser);
+            
 
             return _db.SaveChanges() == 1;
         }

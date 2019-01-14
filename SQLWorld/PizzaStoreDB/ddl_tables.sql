@@ -54,6 +54,7 @@ create table PizzaStore.[Location]
 create table PizzaStore.[Topping]
 (
 	[ToppingId] int not null identity(1,1)
+	,[InventoryId] int not null
 	,[Name] nvarchar(50) not null
 	,[Stock] int not null
 	,[Price] money not null
@@ -64,6 +65,7 @@ create table PizzaStore.[Topping]
 create table PizzaStore.[Size]
 (
 	[SizeId] int not null identity(1,1)
+	,[InventoryId] int not null
 	,[Name] nvarchar(50) not null
 	,[Stock] int not null
 	,[Price] money not null
@@ -74,6 +76,7 @@ create table PizzaStore.[Size]
 create table PizzaStore.[Crust]
 (
 	[CrustId] int not null identity(1,1)
+	,[InventoryId] int not null
 	,[Name] nvarchar(50) not null
 	,[Stock] int not null
 	,[Price] money not null
@@ -108,4 +111,35 @@ create table PizzaStore.[Account]
 	[AccountId] int not null identity(1,1)
 	,[DateModified] as sysutcdatetime()
 	,[Active] bit not null
+);
+
+create table PizzaStore.[CrustInventory]
+(
+	[CrustInventoryId] int not null identity(1,1)
+	,[LocationId] int not null
+	,[CrustId] int not null
+	,[Stock] int not null
+);
+
+create table PizzaStore.[SizeInventory]
+(
+	[SizeInventoryId] int not null identity(1,1)
+	,[LocationId] int not null
+	,[SizeId] int not null
+	,[Stock] int not null
+);
+
+create table PizzaStore.[ToppingInventory]
+(
+	[ToppingInventoryId] int not null identity(1,1)
+	,[LocationId] int not null
+	,[ToppingId] int not null
+	,[Stock] int not null
+);
+
+create table PizzaStore.[PizzaTopping]
+(
+	[PizzaToppingId] int not null identity(1,1)
+	,[PizzaId] int not null
+	,[ToppingId] int not null
 );
