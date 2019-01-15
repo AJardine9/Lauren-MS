@@ -12,7 +12,6 @@ namespace PizzaStore.Data.Helpers
 {
     public static class PizzaHelper
     {
-        /*
         private static PizzaStoreDbContext _db = new PizzaStoreDbContext();
 
         public static List<pi.Pizza> GetPizzaByLocation(lo.Location location)
@@ -57,16 +56,16 @@ namespace PizzaStore.Data.Helpers
             return pizzas;
         }
 
-        public static bool SetPizza(pi.Pizza pizza)
-        {
-            var dataPizza = new Pizza();
-            {
+        //public static bool SetPizza(pi.Pizza pizza)
+        //{
+        //    var dataPizza = new Pizza();
+        //    {
 
-            };
+        //    };
 
-            _db.Pizza.Add(dataPizza);
+        //    _db.Pizza.Add(dataPizza);
 
-            return address == null ? _db.SaveChanges() == 2 : _db.SaveChanges() == 1;
-        }*/
+        //    return address == null ? _db.SaveChanges() == 2 : _db.SaveChanges() == 1;
+        //}
     }
 }

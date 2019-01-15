@@ -22,5 +22,15 @@ namespace PizzaStore.Data.Helpers
 
             return du;
         }
+
+        public static void SetWholeToppingInventory()
+        {
+
+        }
+
+        public static void AdjustToppingInventoryStock()
+        {
+
+        }
     }
 }

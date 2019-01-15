@@ -1,0 +1,13 @@
+﻿<h2>See you soon, @ViewBag.Name, my space cowboy</h2>
+
+@{ 
+    if (ViewBag.Guests >1)
+    {
+        <p>BYOB</p>
+    }
+
+    if(ViewBag.Menu == "yes")
+    {
+        <p>fruit assortment will be available</p>
+    }
+}

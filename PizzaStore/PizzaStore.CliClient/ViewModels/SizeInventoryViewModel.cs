@@ -4,8 +4,7 @@ using System.Text;
 
 namespace PizzaStore.CliClient.ViewModels
 {
-    public static class ToppingInventory
+    public static class SizeInventoryViewModel
     {
-
     }
 }

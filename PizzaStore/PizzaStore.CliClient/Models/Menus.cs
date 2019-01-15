@@ -12,6 +12,8 @@ namespace PizzaStore.CliClient.Models
 {
     public class Menus
     {
+        private int defaultStock = 10;
+
         public void MainMenu()
         {
             Console.WriteLine("Welcome! \n Please login to order.");
@@ -173,36 +175,8 @@ namespace PizzaStore.CliClient.Models
             Console.WriteLine("What type of crust would you like for your pizza?");
 
             option = 1;
-            List<pi.Crust> crusts = new List<pi.Crust>();
-
-            foreach (var crust in CrustViewModel.GetCrusts())
-            {
-                locations.Add(location);
-                Console.WriteLine(option + ". " + "Street: " + location.Address.Street + ", City: " + location.Address.City + ", State: " + location.Address.State);
-
-                option++;
-            }
-
-            lo.Location chosenLocation = locations[0];
-            var input = Console.ReadLine();
-            int choice;
-            bool validOption = Int32.TryParse(input, out choice);
-            try
-            {
-                choice -= 1;
-                chosenLocation = locations[choice];
-            }
-            catch
-            {
-                Console.WriteLine("Your chosen location does not exist");
-                OrderPizzaMenu(user);
-            }
-
-
-
-            // user.CurrentOrder.CreatePizza();
-
-
+            List<pi.Crust> crusts = CrustViewModel.GetCrusts();
+            List<lo.CrustInventory> crustIntentory = CrustInventoryViewModel.GetCrustInventory(crusts, chosenLocation.LocationId, defaultStock);
         }
 
         public void UserAccountMenu(us.User user)

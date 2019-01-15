@@ -7,6 +7,7 @@ namespace PizzaStore.Domain.Models.Location
     public class SizeInventory
     {
         public int SizeInventoryId { get; set; }
+        public int LocationId { get; set; }
         public int SizeId { get; set; }
         public int Stock { get; set; }
 

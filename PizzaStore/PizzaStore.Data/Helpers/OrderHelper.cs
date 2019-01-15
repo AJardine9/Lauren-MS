@@ -14,35 +14,37 @@ namespace PizzaStore.Data.Helpers
     {
         private static PizzaStoreDbContext _db = new PizzaStoreDbContext();
 
-        public static List<ord.Order> GetOrderByLocation(lo.Location location)
-        {
-            var dataLocation = _db.Location.Where(l => l.LocationId == location.LocationId).FirstOrDefault();
+        //public static List<ord.Order> GetOrderByLocation(lo.Location location)
+        //{
+        //    var dataLocation = _db.Location.Where(l => l.LocationId == location.LocationId).FirstOrDefault();
 
-            if (dataLocation == null)
-            {
-                return null;
-            }
+        //    if (dataLocation == null)
+        //    {
+        //        return null;
+        //    }
+        //    else
 
-            return GetOrders(dataLocation.Order);
-        }
 
-        public static List<ord.Order> GetOrderByUser(us.User user)
-        {
-            var dataUser = _db.User.Where(u => u.UserId == user.UserId).FirstOrDefault();
+        //    return GetOrders(dataLocation.Order);
+        //}
 
-            if (dataUser == null)
-            {
-                return null;
-            }
+        //public static List<ord.Order> GetOrderByUser(us.User user)
+        //{
+        //    var dataUser = _db.User.Where(u => u.UserId == user.UserId).FirstOrDefault();
 
-            return GetOrders(dataUser.Order);
-        }
+        //    if (dataUser == null)
+        //    {
+        //        return null;
+        //    }
 
-        public static List<ord.Order> GetOrders(ICollection<Order> orderCollection)
+        //    return GetOrders(dataUser.Order);
+        //}
+
+        public static List<ord.Order> GetOrders()
         {
             var orders = new List<ord.Order>();
 
-            foreach (var item in orderCollection.ToList())
+            foreach (var item in _db.Order.ToList())
             {
                 orders.Add(new ord.Order(item.Username, (int)item.OrderNumber, item.LocationAddress)
                 {
@@ -53,14 +55,14 @@ namespace PizzaStore.Data.Helpers
             return orders;
         }
 
-        public static void SetOrder()
-        {
+        //public static bool SetOrder()
+        //{
 
-        }
+        //}
 
         //public static ord.Order GetOrder()
         //{
-        //    var order = new
+            
         //}
     }
 }

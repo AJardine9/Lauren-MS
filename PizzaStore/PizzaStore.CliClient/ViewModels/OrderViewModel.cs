@@ -8,10 +8,10 @@ namespace PizzaStore.CliClient.ViewModels
 {
     public static class OrderViewModel
     {
-        //public static List<ord.Order> GetOrders()
-        //{
-        //    return OrderHelper.GetOrders();
-        //}
+        public static List<ord.Order> GetOrders()
+        {
+            return OrderHelper.GetOrders();
+        }
 
         //public static bool SetOrder(ord.Order order)
         //{
