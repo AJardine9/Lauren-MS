@@ -1,0 +1,53 @@
+﻿@using lo = PizzaStore.Domain.Models.Location;
+@using pi = PizzaStore.Domain.Models.Pizza;
+@using PizzaStore.ClientV1.ViewModels;
+@using System;
+@using System.Collections.Generic;
+@using System.Text;
+@model PizzaStore.ClientV1.Models.Order
+
+<h1>Make an Order</h1>
+
+<p>Logged in as: @Model.Username</p>
+@*<p>Order number: @Model.OrderNumber</p>*@
+
+@using (@Html.BeginForm("post", "invite"))
+{
+    <p>Which location are you ordering from?</p>
+    List<lo.Location> locations = new List<lo.Location>();
+    foreach (var location in LocationViewModel.GetLocations())
+    {
+        locations.Add(location);
+        @Html.RadioButtonFor(m => m.LocationAddress, location.Address.Street + " " + location.Address.City + ", " + location.Address.State)
+        @Html.LabelFor(m => m.LocationAddress, location.Address.Street + " " + location.Address.City + ", " + location.Address.State)
+        <br />
+    }
+    <br />
+    @*@if (Model.Pizzas != null)
+    {
+    <ul>
+    @foreach (var pizza in Model.Pizzas)
+    {
+        <li>@pizza.Size.ToString() @pizza.Crust.ToString() 
+        @foreach (var topping in pizza.Toppings)
+        {
+            topping.ToString();
+        }
+        </li>
+    }
+    </ul>
+    }*@
+
+    <partial name="~/Views/Shared/_OrderPizzaPartial.cshtml" />
+
+
+
+    @*if (@Model.Pizzas == null)
+        {
+            @Model.Pizzas = new List<pi.Pizza>();
+        }*@
+
+
+}
+
+@*<p>Total: @Model.Total</p>*@

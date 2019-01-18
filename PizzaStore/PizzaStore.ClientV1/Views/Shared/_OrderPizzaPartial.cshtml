@@ -1,0 +1,48 @@
+﻿@using pi = PizzaStore.Domain.Models.Pizza;
+@using PizzaStore.ClientV1.ViewModels;
+@using PizzaStore.ClientV1.Models;
+@model PizzaStore.ClientV1.Models.Order
+
+@{
+    @using (@Html.BeginForm("post", "invite"))
+    {
+        if (Model.Pizzas == null)
+        {
+            Model.Pizzas = new List<pi.Pizza>();
+        }
+        var pizza = new pi.Pizza();
+        Model.Pizzas.Add(pizza);
+        int i = Model.Pizzas.Count() - 1;
+        <p>Choose a size</p>
+        List<pi.Size> sizes = new List<pi.Size>();
+        foreach (var size in SizeViewModel.GetSizes())
+        {
+            sizes.Add(size);
+            @Html.RadioButtonFor(s => s.Pizzas[i].Size, size.Name)
+            @Html.LabelFor(m => m.Pizzas[i].Size, size.Name + " $" + size.Price)
+            <br />
+        }
+
+        <br />
+        <p>Choose a crust</p>
+        List<pi.Crust> crusts = new List<pi.Crust>();
+        foreach (var crust in CrustViewModel.GetCrusts())
+        {
+            crusts.Add(crust);
+            @Html.RadioButtonFor(m => m.Pizzas[i].Crust, crust.Name)
+            @Html.LabelFor(m => m.Pizzas[i].Crust, crust.Name + " $" + crust.Price)
+            <br />
+        }
+
+        <br />
+        <p>Choose 2-5 toppings</p>
+        List<pi.Toppings> toppings = new List<pi.Toppings>();
+        foreach (var topping in ToppingViewModel.GetToppings())
+        {
+            //toppings.Add(topping);
+            <input type="checkbox" value="@topping.Name" />
+            @Html.LabelFor(m => m.Pizzas[i].Toppings, topping.Name + " $" + topping.Price)
+            <br />
+        }
+    }
+}

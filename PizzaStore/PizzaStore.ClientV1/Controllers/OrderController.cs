@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace PizzaStore.ClientV1.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("[controller]")]
     public class OrderController : Controller
     {

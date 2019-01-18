@@ -12,7 +12,6 @@ namespace PizzaStore.Data
         }
 
         public int CrustId { get; set; }
-        public int InventoryId { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
         public DateTime DateModified { get; set; }
