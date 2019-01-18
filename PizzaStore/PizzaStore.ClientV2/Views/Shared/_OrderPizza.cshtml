@@ -1,0 +1,36 @@
+﻿@using PizzaStore.Domain.Models.Pizza;
+@using PizzaStore.ClientV2.ViewModels;
+@model PizzaStore.ClientV2.Models.Pizza
+
+@{
+    @using (@Html.BeginForm("post", "invite"))
+    {
+        <p>Which size crust?</p>
+        List<Size> sizes = new List<Size>();
+        foreach (var size in SizeViewModel.GetSizes())
+        {
+            sizes.Add(size);
+            @Html.RadioButtonFor(m => m.Size, size.Name)
+            @Html.LabelFor(m => m.Size, size.Name + " $" + size.Price)
+            <br />
+        }
+
+        List<Crust> crusts = new List<Crust>();
+        foreach (var crust in CrustViewModel.GetCrusts())
+        {
+            crusts.Add(crust);
+            @Html.RadioButtonFor(m => m.Crust, crust.Name)
+            @Html.LabelFor(m => m.Crust, crust.Name + " $" + crust.Price)
+            <br />
+        }
+
+        List<Toppings> toppings = new List<Toppings>();
+        foreach (var topping in ToppingViewModel.GetToppings())
+        {
+            toppings.Add(topping);
+            <input type="checkbox" value="@topping.Name" />
+            @Html.LabelFor(m => m.Toppings, topping.Name + " $" + topping.Price)
+            <br />
+        }
+    }
+}

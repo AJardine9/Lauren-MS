@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
+    <UserSecretsId>aspnet-PizzaStore.ClientV2-664813DE-851C-4AA9-9AA7-0AAEF7F81E1C</UserSecretsId>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
   </PropertyGroup>
 
@@ -16,11 +17,6 @@
   <ItemGroup>
     <ProjectReference Include="..\PizzaStore.Data\PizzaStore.Data.csproj" />
     <ProjectReference Include="..\PizzaStore.Domain\PizzaStore.Domain.csproj" />
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>
