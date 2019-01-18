@@ -4,7 +4,7 @@ using System.Text;
 using pi = PizzaStore.Domain.Models.Pizza;
 using PizzaStore.Data.Helpers;
 
-namespace PizzaStore.CliClient.ViewModels
+namespace PizzaStore.Client.ViewModels
 {
     public static class ToppingViewModel
     {

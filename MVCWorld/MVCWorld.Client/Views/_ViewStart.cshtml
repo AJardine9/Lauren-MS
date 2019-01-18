@@ -1,3 +1,31 @@
 ﻿@{ 
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    switch (DateTime.Now.DayOfWeek.ToString())
+    {
+        case "Monday":
+            Layout = "~/Views/Shared/_Monday.cshtml";
+            break;
+        case "Tuesday":
+            Layout = "~/Views/Shared/_Tuesday.cshtml";
+            break;
+        case "Wednesday":
+            Layout = "~/Views/Shared/_Wednesday.cshtml";
+            break;
+        //case "Thursday":
+        //    Layout = "~/Views/Shared/_Thursday.cshtml";
+        //    break;
+        //case "Friday":
+        //    Layout = "~/Views/Shared/_Friday.cshtml";
+        //    break;
+        //case "Saturday":
+        //    Layout = "~/Views/Shared/_Saturday.cshtml";
+        //    break;
+        //case "Sunday":
+        //    Layout = "~/Views/Shared/_Sunday.cshtml";
+        //    break;
+        default:
+            Layout = "~/Views/Shared/_AnyWeekday.cshtml";
+            break;
+    }
+}
+
 }

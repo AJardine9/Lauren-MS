@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using PizzaStore.Client.Models;
 
 namespace PizzaStore.Client.Controllers
 {
     [Route("[controller]")]
     public class LoginController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Login()
         {
             return View();
         }
@@ -17,13 +18,15 @@ namespace PizzaStore.Client.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return;
+            var i = new Login();
+            return View("Login", i);
         }
 
         [HttpPost]
-        public IActionResult Post()
+        public IActionResult Post(Login login)
         {
-            return;
+
+            return View("Index");
         }
     }
 }

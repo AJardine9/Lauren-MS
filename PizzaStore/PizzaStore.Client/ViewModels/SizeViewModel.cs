@@ -4,13 +4,13 @@ using System.Text;
 using pi = PizzaStore.Domain.Models.Pizza;
 using PizzaStore.Data.Helpers;
 
-namespace PizzaStore.CliClient.ViewModels
+namespace PizzaStore.Client.ViewModels
 {
-    public static class CrustViewModel
+    public static class SizeViewModel
     {
-        public static List<pi.Crust> GetCrusts()
+        public static List<pi.Size> GetSizes()
         {
-            return CrustHelper.GetCrusts();
+            return SizeHelper.GetSizes();
         }
     }
 }

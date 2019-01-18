@@ -46,7 +46,7 @@ namespace PizzaStore.Data.Helpers
 
             foreach (var item in _db.Order.ToList())
             {
-                orders.Add(new ord.Order(item.Username, (int)item.OrderNumber, item.LocationAddress)
+                orders.Add(new ord.Order(item.Username)
                 {
                     OrderId = item.OrderId
                 });

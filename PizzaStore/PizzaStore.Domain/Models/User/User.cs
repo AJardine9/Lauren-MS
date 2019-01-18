@@ -40,9 +40,9 @@ namespace PizzaStore.Domain.Models.User
         //    }
         //}
 
-        public void CreateOrder(int orderNumber, Address address)
+        public void CreateOrder()
         {
-            CurrentOrder = new ord.Order(Username, orderNumber, address.ToString());
+            CurrentOrder = new ord.Order(Username);
         }
 
         public void CancelOrder()

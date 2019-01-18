@@ -9,9 +9,9 @@ namespace PizzaStore.CliClient.ViewModels
 {
     public static class CrustInventoryViewModel
     {
-        public static List<lo.CrustInventory> GetCrustInventory(List<pi.Crust> crusts, int locationId, int stock)
-        {
-            return CrustInventoryHelper.GetCrustInventory(crusts, locationId, stock);
-        }
+        //public static List<lo.CrustInventory> GetCrustInventory(List<pi.Crust> crusts, int locationId, int stock)
+        //{
+        //    return CrustInventoryHelper.GetCrustInventory(crusts, locationId, stock);
+        //}
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MVCWorld.Client.Validators;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -8,12 +9,12 @@ namespace MVCWorld.Client.Models
 {
     public class Invitation
     {
-        [Required]
+        [StringValidator(ErrorMessage = "Only Alpha characters please")]
         [MaxLength(25)]
         //[DataType(DataType.EmailAddress)]
         public string Name { get; set; }
 
-        [Range(0,5, ErrorMessage = "No more than 5)")]
+        [Range(0,5, ErrorMessage = "No more than 5")]
         public int Guests { get; set; }
 
         [Display(Name = "GlutenOption")]

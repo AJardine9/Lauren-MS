@@ -2,20 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using pi = PizzaStore.Domain.Models.Pizza;
 using System.ComponentModel.DataAnnotations;
 
 namespace PizzaStore.Client.Models
 {
-    public class Login
+    public class Pizza
     {
         [Required]
-        [MaxLength(15)]
-        [MinLength(5)]
-        public string Username { get; set; }
-
+        public string Crust { get; set; }
         [Required]
-        [MinLength(8)]
-        [MaxLength(25)]
-        public string Password { get; set; }
+        public string Size { get; set; }
+        [Required]
+        public List<string> Toppings { get; set; }
     }
 }

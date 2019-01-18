@@ -14,16 +14,16 @@ namespace PizzaStore.Client.Controllers
             return View();
         }
 
-        [HttpGet]
-        public IActionResult Get()
-        {
-            return;
-        }
+        //[HttpGet]
+        //public IActionResult Get()
+        //{
+        //    return;
+        //}
 
-        [HttpPost]
-        public IActionResult Post()
-        {
-            return;
-        }
+        //[HttpPost]
+        //public IActionResult Post()
+        //{
+        //    return;
+        //}
     }
 }

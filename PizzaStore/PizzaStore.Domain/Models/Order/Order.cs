@@ -21,14 +21,14 @@ namespace PizzaStore.Domain.Models.Order
 
         #endregion
         #region Constructor
-        public Order(string username, int orderNumber, string address)
+        public Order(string username)
         {
             Pizzas = new List<pi.Pizza>();
             Username = username;
             Total = 0;
             PurchaseTime = DateTime.Now;
-            OrderNumber = orderNumber;
-            LocationAddress = address;
+            OrderNumber = 0;
+            LocationAddress = "";
             CurrPizza = null;
         }
         #endregion

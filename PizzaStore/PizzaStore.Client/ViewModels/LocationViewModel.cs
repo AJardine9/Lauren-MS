@@ -5,7 +5,7 @@ using lo = PizzaStore.Domain.Models.Location;
 using PizzaStore.Data.Helpers;
 using pdm = PizzaStore.Domain.Models;
 
-namespace PizzaStore.CliClient.ViewModels
+namespace PizzaStore.Client.ViewModels
 {
     public static class LocationViewModel
     {

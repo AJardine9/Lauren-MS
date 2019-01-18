@@ -4,6 +4,7 @@ using System.Text;
 using lo = PizzaStore.Domain.Models.Location;
 using System.Linq;
 using pi = PizzaStore.Domain.Models.Pizza;
+using us = PizzaStore.Domain.Models.User;
 
 namespace PizzaStore.Data.Helpers
 {
@@ -40,16 +41,16 @@ namespace PizzaStore.Data.Helpers
             return du;
         }
 
-        public static List<lo.CrustInventory> GetCrustInventory()
-        {
-            var du = new List<lo.CrustInventory>();
+        //public static List<lo.CrustInventory> GetCrustInventory()
+        //{
+        //    var du = new List<lo.CrustInventory>();
 
-            foreach (var item in _db.CrustInventory.ToList())
-            {
-                du.Add(new us.User(item.Username, item.Password));
-            }
+        //    foreach (var item in _db.CrustInventory.ToList())
+        //    {
+        //        du.Add(new us.User(item.Username, item.Password));
+        //    }
 
-            return du;
-        }
+        //    return du;
+        //}
     }
 }
