@@ -13,6 +13,7 @@ namespace PizzaStore.ClientV1.Models
         [Required]
         public string Size { get; set; }
         [Required]
+        
         public List<string> Toppings { get; set; }
     }
 }

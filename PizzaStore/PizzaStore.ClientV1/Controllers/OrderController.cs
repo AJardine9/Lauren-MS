@@ -22,17 +22,21 @@ namespace PizzaStore.ClientV1.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post(Order i, string AddPizzaToOrder)
+        public IActionResult Post(Order o, string AddPizzaToOrder, string CompleteOrder)
         {
             if (!string.IsNullOrWhiteSpace(AddPizzaToOrder))
             {
-                var o = i.Username;
-                return View("Order", i);
+                var x = o.Pizzas.Count();
+                return View("~/Views/Pizza/Pizza.cshtml",  o);
             }
 
+            if (!string.IsNullOrWhiteSpace(CompleteOrder))
+            {
+                return View("Complete", o);
+            }
             if (ModelState.IsValid)
             {
-
+                
             }
             return View();
         }

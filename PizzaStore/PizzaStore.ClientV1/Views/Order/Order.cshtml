@@ -13,6 +13,8 @@
 
 @using (@Html.BeginForm("Post", "Order", FormMethod.Post))
 {
+
+
     <p>Which location are you ordering from?</p>
     List<lo.Location> locations = new List<lo.Location>();
     foreach (var location in LocationViewModel.GetLocations())
@@ -23,18 +25,23 @@
         <br />
     }
     <br />
- 
+
     @if (Model.Pizzas != null)
     {
+        int i = Model.Pizzas.Count();
+        <p>@i</p>
         @foreach (var pizza in Model.Pizzas)
         {
+
             <p>
-            @pizza.Size.ToString() 
-            @pizza.Crust.ToString() 
-            @foreach (var topping in pizza.Toppings)
-            {
-                topping.ToString();
-            }
+                @pizza.Size.ToString()
+                @pizza.Crust.ToString()
+
+                @foreach (var topping in pizza.Toppings)
+                {
+                    topping.ToString();
+                }
+
             </p>
         }
     }
@@ -45,11 +52,33 @@
     }
     <br />
 
-    @*if (@Model.Pizzas == null)
+    @Html.HiddenFor(m => m.Username)
+    @Html.HiddenFor(m => m.Total)
+    @Html.HiddenFor(m => m.OrderNumber)
+    @Html.HiddenFor(m => m.LocationAddress)
+    if (Model.Pizzas.Count == 0)
+    {
+        @Html.HiddenFor(m => m.Pizzas)
+    }
+    else
+    {
+        @for (int x = 0; x < Model.Pizzas.Count; x++)
         {
-            @Model.Pizzas = new List<pi.Pizza>();
-        }*@
+            @Html.HiddenFor(m => m.Pizzas[x].Crust)
+            @Html.HiddenFor(m => m.Pizzas[x].Size)
+            if (Model.Pizzas[x].Toppings.Count > 0)
+            {
+                for (int t = 0; t < Model.Pizzas[x].Toppings.Count; t++)
+                {
+                    @Html.HiddenFor(m => m.Pizzas[x].Toppings[t])
+                }
+            }
+            else
+            {
+                @Html.HiddenFor(m => m.Pizzas[x].Toppings)
+            }
+        }
+    }
+    <button type="submit" name="AddPizzaToOrder" value="@Model">Add A Pizza</button>
 }
-    @*<partial name="~/Views/Shared/_OrderPizzaPartial.cshtml" model="Model" />*@
-@Html.Partial("~/Views/Shared/_OrderPizzaPartial.cshtml", Model)
-@*<p>Total: @Model.Total</p>*@
+

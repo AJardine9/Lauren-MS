@@ -1,0 +1,67 @@
+﻿@using pi = PizzaStore.Domain.Models.Pizza;
+@using PizzaStore.ClientV1.ViewModels;
+@using PizzaStore.ClientV1.Models;
+@model PizzaStore.ClientV1.Models.Order
+
+
+@using (@Html.BeginForm("Post", "Pizza", FormMethod.Post))
+{
+    <p>@Model.Username</p>
+    int i = Model.Pizzas.Count();
+    <p>@i</p>
+    var pizza = new pi.Pizza();
+    Model.Pizzas.Add(pizza);
+    double pizzaTotal = 0;
+
+
+    <p>Choose a size</p>
+    foreach (var size in SizeViewModel.GetSizes())
+    {
+        @Html.RadioButtonFor(s => s.Pizzas[i].Size, size.Name)
+        @Html.LabelFor(s => s.Pizzas[i].Size, size.Name + " $" + size.Price)
+        <br />
+    }
+
+    <br />
+    <p>Choose a crust</p>
+    foreach (var crust in CrustViewModel.GetCrusts())
+    {
+        @Html.RadioButtonFor(m => m.Pizzas[i].Crust, crust.Name)
+        @Html.LabelFor(m => m.Pizzas[i].Crust, crust.Name + " $" + crust.Price)
+        <br />
+    }
+
+    <br />
+    <p>Choose 2-5 toppings</p>
+    foreach (var topping in ToppingViewModel.GetToppings())
+    {
+        <input type="checkbox" value="@topping.Name" />
+        @Html.LabelFor(m => m.Pizzas[i].Toppings, topping.Name + " $" + topping.Price)
+        <br />
+    }
+
+    @for (int x = 0; x < Model.Pizzas.Count; x++)
+    {
+        @Html.HiddenFor(m => m.Pizzas[x].PizzaId)
+        @Html.HiddenFor(m => m.Pizzas[x].Crust)
+        @Html.HiddenFor(m => m.Pizzas[x].Size)
+        if (Model.Pizzas[x].Toppings.Count > 0)
+        {
+            for (int t = 0; t < Model.Pizzas[x].Toppings.Count; t++)
+            {
+                @Html.HiddenFor(m => m.Pizzas[x].Toppings[t])
+            }
+        }
+        else
+        {
+            @Html.HiddenFor(m => m.Pizzas[x].Toppings)
+        }
+    }
+    @Html.HiddenFor(m => m.Username)
+    @Html.HiddenFor(m => m.Total, Model.Total + pizzaTotal)
+    @Html.HiddenFor(m => m.OrderNumber)
+    @Html.HiddenFor(m => m.LocationAddress)
+
+    <button type="submit" name="ConfirmPizza" value="@Model">Confirm Pizza</button>
+    <button type="submit" name="CancelPizza" value="@Model">Cancel Pizza</button>
+}
