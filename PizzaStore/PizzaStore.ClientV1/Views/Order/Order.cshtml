@@ -11,7 +11,7 @@
 <p>Logged in as: @Model.Username</p>
 @*<p>Order number: @Model.OrderNumber</p>*@
 
-@using (@Html.BeginForm("post", "invite"))
+@using (@Html.BeginForm("Post", "Order", FormMethod.Post))
 {
     <p>Which location are you ordering from?</p>
     List<lo.Location> locations = new List<lo.Location>();
@@ -23,31 +23,33 @@
         <br />
     }
     <br />
-    @*@if (Model.Pizzas != null)
+ 
+    @if (Model.Pizzas != null)
     {
-    <ul>
-    @foreach (var pizza in Model.Pizzas)
-    {
-        <li>@pizza.Size.ToString() @pizza.Crust.ToString() 
-        @foreach (var topping in pizza.Toppings)
+        @foreach (var pizza in Model.Pizzas)
         {
-            topping.ToString();
+            <p>
+            @pizza.Size.ToString() 
+            @pizza.Crust.ToString() 
+            @foreach (var topping in pizza.Toppings)
+            {
+                topping.ToString();
+            }
+            </p>
         }
-        </li>
     }
-    </ul>
-    }*@
-
-    <partial name="~/Views/Shared/_OrderPizzaPartial.cshtml" />
-
-
+    else
+    {
+        <p>You have not added a pizza to your order yet.</p>
+        Model.Pizzas = new List<pi.Pizza>();
+    }
+    <br />
 
     @*if (@Model.Pizzas == null)
         {
             @Model.Pizzas = new List<pi.Pizza>();
         }*@
-
-
 }
-
+    @*<partial name="~/Views/Shared/_OrderPizzaPartial.cshtml" model="Model" />*@
+@Html.Partial("~/Views/Shared/_OrderPizzaPartial.cshtml", Model)
 @*<p>Total: @Model.Total</p>*@

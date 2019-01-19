@@ -18,13 +18,18 @@ namespace PizzaStore.ClientV1.Controllers
             var i = new Order();
             i.Username = "TestUser";
 
-
             return View("Order", i);
         }
 
         [HttpPost]
-        public IActionResult Post(Order order)
+        public IActionResult Post(Order i, string AddPizzaToOrder)
         {
+            if (!string.IsNullOrWhiteSpace(AddPizzaToOrder))
+            {
+                var o = i.Username;
+                return View("Order", i);
+            }
+
             if (ModelState.IsValid)
             {
 
